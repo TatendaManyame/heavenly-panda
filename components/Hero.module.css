@@ -1,0 +1,110 @@
+/* components/Hero.module.css */
+
+.ticketCard {
+  background: rgba(20, 17, 15, 0.92);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(243, 236, 221, 0.12);
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+  position: relative;
+  color: #f3ecdd;
+}
+
+.perfLine {
+  position: relative;
+}
+
+.perfLine::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 2px;
+  background: repeating-linear-gradient(
+    to bottom,
+    #f3ecdd 0px,
+    #f3ecdd 6px,
+    transparent 6px,
+    transparent 12px
+  );
+  opacity: 0.25;
+}
+
+.inputEdit {
+  width: 100%;
+  background: rgba(243, 236, 221, 0.06);
+  border: none;
+  border-bottom: 1px solid rgba(243, 236, 221, 0.15);
+  padding: 12px 4px 8px 4px;
+  color: #f3ecdd;
+  font-family: "Space Grotesk", sans-serif;
+  font-size: 16px;
+  transition: border-color 0.3s ease, background 0.3s ease;
+  outline: none;
+}
+
+.inputEdit::placeholder {
+  color: rgba(243, 236, 221, 0.3);
+  font-weight: 300;
+}
+
+.inputEdit:focus {
+  border-bottom-color: #d4a84b;
+  background: rgba(212, 168, 75, 0.06);
+}
+
+.inputEdit:-webkit-autofill,
+.inputEdit:-webkit-autofill:hover,
+.inputEdit:-webkit-autofill:focus {
+  -webkit-box-shadow: 0 0 0 1000px rgba(20, 17, 15, 0.95) inset !important;
+  -webkit-text-fill-color: #f3ecdd !important;
+  border-bottom-color: #d4a84b;
+}
+
+/* Marquee — CSS-driven, duplicated content scrolls exactly 50% then loops seamlessly */
+.marqueeTrack {
+  display: flex;
+  width: max-content;
+  animation: marquee 32s linear infinite;
+}
+
+.marqueeContent {
+  display: flex;
+}
+
+@keyframes marquee {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .marqueeTrack {
+    animation: none;
+  }
+}
+
+@media (max-width: 1024px) {
+  .ticketCard {
+    backdrop-filter: blur(8px);
+  }
+
+  .perfLine::before {
+    display: none;
+  }
+}
+
+@media (max-width: 768px) {
+  .ticketCard {
+    padding: 24px;
+    margin: 0;
+    border-radius: 8px;
+  }
+
+  .perfLine {
+    padding-left: 0;
+  }
+}
