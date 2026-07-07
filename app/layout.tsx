@@ -41,9 +41,10 @@ export const metadata: Metadata = {
     siteName: "Heavenly Panda",
     images: [
       {
-        url: "https://heavenlypanda.com/og-image.jpg",
+        url: "https://heavenlypanda.com/heavenly-logo2.jpeg",
         width: 1200,
         height: 630,
+        alt: "Heavenly Panda Logo",
       },
     ],
     locale: "en_US",
@@ -54,7 +55,7 @@ export const metadata: Metadata = {
     title: "Heavenly Panda · Strategy meets creative power",
     description:
       "We help brands grow with clear business strategy, compelling content, and social media that converts.",
-    images: ["https://heavenlypanda.com/og-image.jpg"],
+    images: ["https://heavenlypanda.com/heavenly-logo2.jpeg"],
   },
   robots: {
     index: true,
@@ -66,6 +67,20 @@ export const metadata: Metadata = {
       "max-image-preview": "large",
       "max-snippet": -1,
     },
+  },
+  icons: {
+    icon: [
+      {
+        url: "/heavenly-logo2.jpeg",
+        sizes: "any",
+      },
+    ],
+    apple: [
+      {
+        url: "/heavenly-logo2.jpeg",
+        sizes: "180x180",
+      },
+    ],
   },
 };
 
