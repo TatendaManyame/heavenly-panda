@@ -187,7 +187,7 @@ export default function Hero() {
             <Reveal delay={400}>
               <p className="mt-8 max-w-md text-base leading-relaxed text-[#5E5A55]">
                 We help brands grow with clear business strategy, compelling
-                content, and social media that converts — all under one roof.
+                content, and social media that converts all under one roof.
               </p>
             </Reveal>
 

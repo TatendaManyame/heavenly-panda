@@ -89,7 +89,7 @@ export function WhoWeAre() {
                 <p className="text-lg leading-relaxed text-[#5E5A54]">
                   A Beijing &amp; UAE-based business consultancy and creative agency
                   that bridges strategic thinking with creative execution. We work
-                  with brands at every stage — from startups mapping their market
+                  with brands at every stage from startups mapping their market
                   entry to established businesses refreshing their digital presence
                   and scaling their footprint.
                 </p>
