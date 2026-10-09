@@ -7,20 +7,20 @@ import { Reveal, RevealGroup } from "./Reveal";
 
 const VALUES = [
   {
-    title: "Strategic Excellence",
-    body: "We combine deep business strategy with creative execution to deliver measurable results.",
+    title: "Creative Excellence",
+    body: "We combine bold creative direction with technical craft to deliver media that truly stands out.",
   },
   {
     title: "Innovation First",
-    body: "Embracing cutting-edge approaches and technologies to keep our clients ahead of the curve.",
+    body: "Embracing cutting-edge tools and visual approaches to keep our clients ahead of the curve.",
   },
   {
     title: "Global Perspective",
-    body: "Bridging markets across Beijing, UAE, and beyond with culturally intelligent solutions.",
+    body: "Bridging markets across Beijing, UAE, and beyond with culturally intelligent media solutions.",
   },
   {
     title: "Results Driven",
-    body: "Focused on delivering tangible outcomes that grow your brand and bottom line.",
+    body: "Focused on delivering tangible outcomes that grow your brand visibility and bottom line.",
   },
 ];
 
@@ -28,12 +28,12 @@ const MISSION_VISION = [
   {
     n: "01",
     title: "Our Mission",
-    text: "To create impactful business and creative solutions that resonate with target audiences, elevating brands through strategic thinking and creative excellence.",
+    text: "To create impactful media and branding solutions that resonate with target audiences, elevating businesses through strategic storytelling and creative excellence.",
   },
   {
     n: "02",
     title: "Our Vision",
-    text: "To become the leading integrated consultancy for growing brands across the Middle East and Asia — known for delivering measurable results through strategy and creativity.",
+    text: "To become the leading integrated creative studio for growing brands across the Middle East and Asia — known for delivering measurable results through design, photography, and videography.",
   },
 ];
 
@@ -79,7 +79,7 @@ export function WhoWeAre() {
                 Heavenly Panda
                 <br />
                 <span className="font-serif italic font-normal text-[#D4A84B]">
-                  Consulting
+                  Creative
                 </span>
               </h2>
             </Reveal>
@@ -87,17 +87,17 @@ export function WhoWeAre() {
             <RevealGroup stagger={150} delay={300}>
               <div className="mt-6 space-y-4">
                 <p className="text-lg leading-relaxed text-[#5E5A54]">
-                  A Beijing &amp; UAE-based business consultancy and creative agency
-                  that bridges strategic thinking with creative execution. We work
-                  with brands at every stage from startups mapping their market
-                  entry to established businesses refreshing their digital presence
-                  and scaling their footprint.
+                  A Beijing &amp; UAE-based digital creative and marketing business
+                  that bridges strategic thinking with visual execution. We work
+                  with brands at every stage from startups building their visual
+                  identity to established businesses refreshing their media
+                  presence and scaling their footprint.
                 </p>
                 <p className="text-lg leading-relaxed text-[#5E5A54]">
-                  What sets us apart is our integrated model: strategy, content
-                  creation, and social media management handled in-house by a
+                  What sets us apart is our integrated model: branding, graphic
+                  design, photography, and videography handled in-house by a
                   single team, aligned on your goals. No fragmented briefings. No
-                  creative-strategy disconnect. Just focused, cohesive work that
+                  creative-strategy disconnect. Just focused, cohesive media that
                   performs.
                 </p>
               </div>
@@ -146,7 +146,7 @@ export function WhoWeAre() {
                     >
                       <Image
                         src={images[currentImage]}
-                        alt={`Heavenly Panda Consulting ${currentImage + 1}`}
+                        alt={`Heavenly Panda Creative ${currentImage + 1}`}
                         fill
                         className="object-cover"
                         priority

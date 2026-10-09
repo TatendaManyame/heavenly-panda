@@ -291,153 +291,22 @@ const PROJECTS: Project[] = [
 ];
 
 const SOCIAL_ICONS: SocialIcon[] = [
-  { 
-    Icon: FaInstagram, 
-    label: "Instagram", 
-    href: process.env.NEXT_PUBLIC_INSTAGRAM_URL || "https://www.instagram.com/heavenlypanda_444" 
+  {
+    Icon: FaInstagram,
+    label: "Instagram",
+    href: process.env.NEXT_PUBLIC_INSTAGRAM_URL || "https://www.instagram.com/heavenlypanda_444"
   },
-  { 
-    Icon: FaTiktok, 
-    label: "TikTok", 
-    href: process.env.NEXT_PUBLIC_TIKTOK_URL || "https://www.tiktok.com/@heavenlypanda" 
+  {
+    Icon: FaTiktok,
+    label: "TikTok",
+    href: process.env.NEXT_PUBLIC_TIKTOK_URL || "https://www.tiktok.com/@heavenlypanda"
   },
-  { 
-    Icon: FaYoutube, 
-    label: "YouTube", 
-    href: process.env.NEXT_PUBLIC_YOUTUBE_URL || "https://youtube.com/@heavenlypanda" 
+  {
+    Icon: FaYoutube,
+    label: "YouTube",
+    href: process.env.NEXT_PUBLIC_YOUTUBE_URL || "https://youtube.com/@heavenlypanda"
   },
 ];
-
-// Hero Carousel Component
-function HeroCarousel() {
-  const [currentIndex, setCurrentIndex] = useState(0);
-  const [isPaused, setIsPaused] = useState(false);
-  const [isLoading, setIsLoading] = useState(true);
-  const carouselProjects = PROJECTS.slice(0, 6);
-
-  useEffect(() => {
-    if (isPaused) return;
-    const interval = setInterval(() => {
-      setCurrentIndex((prev) => (prev + 1) % carouselProjects.length);
-    }, 4500);
-    return () => clearInterval(interval);
-  }, [isPaused, carouselProjects.length]);
-
-  const goTo = (index: number) => {
-    setCurrentIndex(index);
-    setIsPaused(true);
-    setTimeout(() => setIsPaused(false), 5000);
-  };
-
-  const next = () => goTo((currentIndex + 1) % carouselProjects.length);
-  const prev = () => goTo((currentIndex - 1 + carouselProjects.length) % carouselProjects.length);
-
-  // Native touch support
-  const [touchStart, setTouchStart] = useState<number | null>(null);
-  const [touchEnd, setTouchEnd] = useState<number | null>(null);
-
-  const handleTouchStart = (e: React.TouchEvent) => {
-    setTouchStart(e.targetTouches[0].clientX);
-  };
-
-  const handleTouchMove = (e: React.TouchEvent) => {
-    setTouchEnd(e.targetTouches[0].clientX);
-  };
-
-  const handleTouchEnd = () => {
-    if (!touchStart || !touchEnd) return;
-    const distance = touchStart - touchEnd;
-    const isLeftSwipe = distance > 50;
-    const isRightSwipe = distance < -50;
-    if (isLeftSwipe) {
-      next();
-    }
-    if (isRightSwipe) {
-      prev();
-    }
-    setTouchStart(null);
-    setTouchEnd(null);
-  };
-
-  return (
-    <div 
-      className="relative w-full overflow-hidden rounded-2xl shadow-2xl"
-      onTouchStart={handleTouchStart}
-      onTouchMove={handleTouchMove}
-      onTouchEnd={handleTouchEnd}
-    >
-      <div className="relative h-[320px] w-full overflow-hidden sm:h-[380px] lg:h-[440px]">
-        <AnimatePresence mode="wait">
-          <motion.div
-            key={currentIndex}
-            initial={{ opacity: 0, scale: 1.05 }}
-            animate={{ opacity: 1, scale: 1 }}
-            exit={{ opacity: 0, scale: 0.97 }}
-            transition={{ duration: 0.7, ease: [0.4, 0, 0.2, 1] }}
-            className="relative h-full w-full"
-          >
-            {isLoading && (
-              <div className="absolute inset-0 animate-pulse bg-[#14110F]/10" />
-            )}
-            <Image
-              src={carouselProjects[currentIndex].image}
-              alt={`${carouselProjects[currentIndex].title} - ${carouselProjects[currentIndex].category} project showcase`}
-              fill
-              className="object-cover"
-              priority={currentIndex === 0}
-              sizes="(max-width: 1024px) 100vw, 50vw"
-              onLoadingComplete={() => setIsLoading(false)}
-            />
-            <div className="absolute inset-0 bg-gradient-to-t from-[#14110F]/90 via-[#14110F]/30 to-transparent" />
-
-            <div className="absolute inset-x-0 bottom-0 p-6">
-              <motion.div
-                initial={{ y: 16, opacity: 0 }}
-                animate={{ y: 0, opacity: 1 }}
-                transition={{ delay: 0.15, duration: 0.4 }}
-              >
-                <span className="inline-block rounded-full bg-[#D4A84B]/20 px-3 py-1 text-[10px] font-medium uppercase tracking-[0.2em] text-[#D4A84B] backdrop-blur-sm">
-                  {carouselProjects[currentIndex].category}
-                </span>
-                <h3 className="mt-2 font-clash text-xl font-semibold text-[#F3ECDD] sm:text-2xl">
-                  {carouselProjects[currentIndex].title}
-                </h3>
-              </motion.div>
-            </div>
-          </motion.div>
-        </AnimatePresence>
-
-        <button
-          onClick={prev}
-          className="absolute left-3 top-1/2 z-10 flex h-9 w-9 -translate-y-1/2 items-center justify-center rounded-full bg-black/40 text-white backdrop-blur-sm transition-all hover:scale-110 hover:bg-black/60"
-          aria-label="Previous project"
-        >
-          <FaChevronLeft className="h-3.5 w-3.5" />
-        </button>
-        <button
-          onClick={next}
-          className="absolute right-3 top-1/2 z-10 flex h-9 w-9 -translate-y-1/2 items-center justify-center rounded-full bg-black/40 text-white backdrop-blur-sm transition-all hover:scale-110 hover:bg-black/60"
-          aria-label="Next project"
-        >
-          <FaChevronRight className="h-3.5 w-3.5" />
-        </button>
-
-        <div className="absolute bottom-3 right-4 z-10 flex gap-1.5">
-          {carouselProjects.map((_, index) => (
-            <button
-              key={index}
-              onClick={() => goTo(index)}
-              className={`h-1.5 rounded-full transition-all duration-300 ${
-                index === currentIndex ? "w-6 bg-[#D4A84B]" : "w-1.5 bg-white/40 hover:bg-white/70"
-              }`}
-              aria-label={`Go to project ${index + 1}`}
-            />
-          ))}
-        </div>
-      </div>
-    </div>
-  );
-}
 
 // Project Modal Component
 function ProjectModal({ project, onClose }: { project: Project; onClose: () => void }) {
@@ -698,7 +567,7 @@ export default function PortfolioPage() {
     <>
       <main className="relative overflow-hidden bg-[#FCFBF8]">
         {/* Hero Section */}
-        <section className="relative overflow-hidden bg-[#14110F] pb-14 pt-40 sm:pt-44 lg:pt-48">
+        <section className="relative overflow-hidden bg-white pb-16 pt-40 sm:pt-44 lg:pt-48">
           {/* Background photo */}
           <div className="pointer-events-none absolute inset-0">
             <Image
@@ -706,97 +575,99 @@ export default function PortfolioPage() {
               alt="Background pattern"
               fill
               priority
-              className="object-cover opacity-25"
+              className="object-cover opacity-[0.06]"
               sizes="100vw"
             />
-            <div className="absolute inset-0 bg-gradient-to-b from-[#14110F]/95 via-[#14110F]/85 to-[#14110F]" />
-            <div className="absolute inset-0 bg-gradient-to-r from-[#14110F]/60 via-transparent to-[#14110F]/80" />
+            <div className="absolute inset-0 bg-gradient-to-b from-white/95 via-white/85 to-white" />
+            <div className="absolute inset-0 bg-gradient-to-r from-white/60 via-transparent to-white/80" />
           </div>
 
           <div className="pointer-events-none absolute inset-0">
-            <div className="absolute -left-20 top-0 h-[400px] w-[400px] rounded-full bg-[#D4A84B]/10 blur-[120px]" />
+            <div className="absolute -left-20 top-0 h-[400px] w-[400px] rounded-full bg-[#D4A84B]/[0.07] blur-[120px]" />
             <div
-              className="absolute inset-0 opacity-[0.03]"
+              className="absolute inset-0 opacity-[0.04]"
               style={{
                 backgroundImage:
-                  "linear-gradient(rgba(255,255,255,0.1) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.1) 1px, transparent 1px)",
+                  "linear-gradient(rgba(20,17,15,0.15) 1px, transparent 1px), linear-gradient(90deg, rgba(20,17,15,0.15) 1px, transparent 1px)",
                 backgroundSize: "60px 60px",
               }}
             />
           </div>
 
-          <div className="relative mx-auto max-w-7xl px-6">
-            <div className="grid items-center gap-12 lg:grid-cols-[1fr_1fr] lg:gap-16">
-              {/* Text column */}
-              <div>
-                <Reveal>
-                  <span className="inline-flex items-center gap-3 text-[11px] uppercase tracking-[0.35em] text-[#D4A84B]/80">
-                    <span className="h-px w-8 bg-[#D4A84B]/50" />
-                    Our Portfolio
+          <div className="relative mx-auto max-w-4xl px-6 text-center">
+            <Reveal>
+              <span className="inline-flex items-center gap-3 text-[11px] uppercase tracking-[0.35em] text-[#D4A84B]/80">
+                <span className="h-px w-8 bg-[#D4A84B]/50" />
+                Our Portfolio
+                <span className="h-px w-8 bg-[#D4A84B]/50" />
+              </span>
+            </Reveal>
+
+            <Reveal delay={100}>
+              <h1 className="mt-6 font-clash text-4xl font-bold leading-[1.1] text-[#14110F] sm:text-5xl lg:text-6xl">
+                Crafting
+                <br />
+                <span className="font-serif italic font-normal text-[#D4A84B]">
+                  digital excellence.
+                </span>
+              </h1>
+            </Reveal>
+
+            <Reveal delay={200}>
+              <p className="mx-auto mt-6 max-w-xl text-base leading-relaxed text-[#5E5A54] sm:text-lg">
+                Explore our work across branding, strategy consulting,
+                digital marketing, photography, and graphic design.
+              </p>
+            </Reveal>
+
+            <Reveal delay={300}>
+              <div className="mt-10 flex flex-wrap items-center justify-center gap-8">
+                <div className="text-center">
+                  <span className="font-clash text-3xl font-bold text-[#D4A84B]">
+                    {PROJECTS.length}
                   </span>
-                </Reveal>
-
-                <Reveal delay={100}>
-                  <h1 className="mt-5 font-clash text-4xl font-bold leading-[1.1] text-[#F3ECDD] sm:text-5xl lg:text-6xl">
-                    Crafting
-                    <br />
-                    <span className="font-serif italic font-normal text-[#D4A84B]">
-                      digital excellence.
-                    </span>
-                  </h1>
-                </Reveal>
-
-                <Reveal delay={200}>
-                  <p className="mt-6 max-w-md text-base leading-relaxed text-[#F3ECDD]/65 sm:text-lg">
-                    Explore our work across branding, strategy consulting,
-                    digital marketing, photography, and graphic design.
-                  </p>
-                </Reveal>
-
-                <Reveal delay={300}>
-                  <div className="mt-8 flex flex-wrap items-center gap-6">
-                    <div>
-                      <span className="font-clash text-2xl font-bold text-[#D4A84B]">
-                        {PROJECTS.length}
-                      </span>
-                      <span className="ml-2 text-sm text-[#F3ECDD]/50">projects delivered</span>
-                    </div>
-                    <span className="h-8 w-px bg-[#F3ECDD]/15" />
-                    <div>
-                      <span className="font-clash text-2xl font-bold text-[#D4A84B]">50+</span>
-                      <span className="ml-2 text-sm text-[#F3ECDD]/50">happy clients</span>
-                    </div>
-                  </div>
-                </Reveal>
-
-                <Reveal delay={400}>
-                  <div className="mt-8 flex items-center gap-4">
-                    <span className="text-xs uppercase tracking-[0.2em] text-[#F3ECDD]/40">
-                      Follow us
-                    </span>
-                    <div className="flex items-center gap-2">
-                      {SOCIAL_ICONS.map(({ Icon, label, href }) => (
-                        <a
-                          key={label}
-                          href={href}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="flex h-10 w-10 items-center justify-center rounded-full border border-[#D4A84B]/20 bg-white/5 text-[#D4A84B] transition-all duration-300 hover:scale-110 hover:bg-[#D4A84B] hover:text-[#14110F]"
-                          aria-label={`Follow on ${label}`}
-                        >
-                          <Icon className="h-4 w-4" />
-                        </a>
-                      ))}
-                    </div>
-                  </div>
-                </Reveal>
+                  <span className="mt-1 block text-xs uppercase tracking-[0.15em] text-[#5E5A54]">
+                    Projects Delivered
+                  </span>
+                </div>
+                <span className="h-10 w-px bg-[#14110F]/10" />
+                <div className="text-center">
+                  <span className="font-clash text-3xl font-bold text-[#D4A84B]">50+</span>
+                  <span className="mt-1 block text-xs uppercase tracking-[0.15em] text-[#5E5A54]">
+                    Happy Clients
+                  </span>
+                </div>
+                <span className="h-10 w-px bg-[#14110F]/10" />
+                <div className="text-center">
+                  <span className="font-clash text-3xl font-bold text-[#D4A84B]">6+</span>
+                  <span className="mt-1 block text-xs uppercase tracking-[0.15em] text-[#5E5A54]">
+                    Years Active
+                  </span>
+                </div>
               </div>
+            </Reveal>
 
-              {/* Carousel column */}
-              <Reveal delay={250} direction="up">
-                <HeroCarousel />
-              </Reveal>
-            </div>
+            <Reveal delay={400}>
+              <div className="mt-10 flex items-center justify-center gap-4">
+                <span className="text-xs uppercase tracking-[0.2em] text-[#5E5A54]/60">
+                  Follow us
+                </span>
+                <div className="flex items-center gap-2">
+                  {SOCIAL_ICONS.map(({ Icon, label, href }) => (
+                    <a
+                      key={label}
+                      href={href}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="flex h-10 w-10 items-center justify-center rounded-full border border-[#D4A84B]/20 bg-white text-[#D4A84B] transition-all duration-300 hover:scale-110 hover:bg-[#D4A84B] hover:text-white"
+                      aria-label={`Follow on ${label}`}
+                    >
+                      <Icon className="h-4 w-4" />
+                    </a>
+                  ))}
+                </div>
+              </div>
+            </Reveal>
           </div>
         </section>
 

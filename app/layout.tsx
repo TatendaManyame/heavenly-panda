@@ -3,7 +3,7 @@ import type { Metadata } from "next";
 import { Inter, Space_Grotesk, Plus_Jakarta_Sans } from "next/font/google";
 import "./globals.css";
 import Navbar from "@/components/Navbar";
-import Loader from "@/components/Loader";
+
 
 const inter = Inter({
   subsets: ["latin"],
@@ -95,7 +95,7 @@ export default function RootLayout({
       className={`${inter.variable} ${spaceGrotesk.variable} ${clashDisplay.variable}`}
     >
       <body>
-        <Loader />
+      
         <Navbar />
         <main>{children}</main>
       </body>

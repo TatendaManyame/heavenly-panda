@@ -22,7 +22,7 @@ const CLIENTS = [
 
 export default function ClientLogosMarquee() {
   return (
-    <section className="relative py-16 bg-gradient-to-b from-white via-[#F8F5F0] to-white border-t border-[#D4A84B]/10 overflow-hidden">
+    <section className="relative py-16 bg-white border-t border-[#D4A84B]/10 overflow-hidden">
       {/* Background decoration */}
       <div className="absolute inset-0 pointer-events-none">
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] rounded-full bg-[#D4A84B]/[0.03] blur-[100px]" />

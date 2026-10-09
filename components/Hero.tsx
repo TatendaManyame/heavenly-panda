@@ -32,7 +32,7 @@ const STATS = [
 const BG_IMAGES = [
   { src: "/hero2.jpeg", alt: "Heavenly Panda — strategy" },
   { src: "/hero3.jpeg", alt: "Heavenly Panda — creative" },
-  { src: "/hero4.jpeg", alt: "Heavenly Panda — brand" },
+  
   { src: "/hero5.jpeg", alt: "Heavenly Panda — vision" },
 ];
 
@@ -41,8 +41,6 @@ const ROTATE_MS = 6000;
 
 export default function Hero() {
   const sectionRef = useRef<HTMLElement>(null);
-  const [formData, setFormData] = useState({ name: "", email: "", message: "" });
-  const [submitted, setSubmitted] = useState(false);
   const [activeImage, setActiveImage] = useState(0);
 
   const { ref: statsRef, inView } = useInView({ triggerOnce: true, threshold: 0.3 });
@@ -66,13 +64,6 @@ export default function Hero() {
   });
   const bgY = useTransform(scrollYProgress, [0, 1], ["0%", "18%"]);
   const bgScale = useTransform(scrollYProgress, [0, 1], [1.04, 1.14]);
-
-  const submit = (e: React.FormEvent) => {
-    e.preventDefault();
-    setSubmitted(true);
-    setTimeout(() => setSubmitted(false), 3000);
-    setFormData({ name: "", email: "", message: "" });
-  };
 
   return (
     <section ref={sectionRef} className="relative min-h-screen overflow-hidden px-6 pb-0 pt-28">
@@ -139,22 +130,6 @@ export default function Hero() {
         </div>
       </div>
 
-      {/* Founded stamp */}
-      <motion.div
-        initial={{ opacity: 0, scale: 0.6, rotate: -18 }}
-        animate={{ opacity: 1, scale: 1, rotate: -8 }}
-        transition={{ duration: 0.7, delay: 0.9, ease: [0.34, 1.56, 0.64, 1] }}
-        className="absolute right-10 top-24 z-20 hidden h-28 w-28 items-center justify-center rounded-full border-2 border-[#14110F] bg-white/80 text-center shadow-xl backdrop-blur-sm md:right-16 md:flex"
-      >
-        <p className="font-mono text-[10px] uppercase leading-tight tracking-[0.2em] text-[#14110F]">
-          Founded
-          <br />
-          2020
-          <br />
-          Beijing · UAE
-        </p>
-      </motion.div>
-
       <div className="relative z-20 mx-auto w-full max-w-7xl">
         <div className="grid items-start gap-16 lg:grid-cols-[1.3fr_1fr]">
           {/* LEFT */}
@@ -162,7 +137,7 @@ export default function Hero() {
             <Reveal delay={100}>
               <div className="mb-6 inline-flex items-center gap-3 font-mono text-xs uppercase tracking-[0.25em] text-[#5E5A55]">
                 <span className="h-px w-8 bg-[#D4A84B]/60" />
-                Consultancy &amp; Creative Agency
+                Digital Creative &amp; Marketing Business
               </div>
             </Reveal>
 
@@ -186,8 +161,7 @@ export default function Hero() {
 
             <Reveal delay={400}>
               <p className="mt-8 max-w-md text-base leading-relaxed text-[#5E5A55]">
-                We help brands grow with clear business strategy, compelling
-                content, and social media that converts all under one roof.
+                We offer media solutions for product, event, and business branding, graphic design, photography, and videography.
               </p>
             </Reveal>
 
@@ -228,78 +202,7 @@ export default function Hero() {
             </Reveal>
           </div>
 
-          {/* RIGHT — ticket-stub contact card */}
-          <Reveal direction="right" delay={300}>
-            <div className={`${styles.ticketCard} relative z-30 mx-2 mt-4 rounded-sm p-9 shadow-2xl lg:mt-10`}>
-              <div className={`${styles.perfLine} pl-7`}>
-                {submitted ? (
-                  <div className="flex h-full flex-col items-center justify-center py-20 text-center">
-                    <p className="mb-3 font-mono text-xs uppercase tracking-[0.3em] text-[#D4A84B]">
-                      Confirmed
-                    </p>
-                    <h2 className="font-clash text-4xl">Thank you</h2>
-                    <p className="mt-3 text-sm text-[#F3ECDD]/60">
-                      We&apos;ll be in touch within 24 hours.
-                    </p>
-                  </div>
-                ) : (
-                  <form onSubmit={submit} className="space-y-6">
-                    <div className="flex items-baseline justify-between">
-                      <h2 className="font-clash text-3xl">Get a quote</h2>
-                      <span className="font-mono text-[10px] uppercase tracking-[0.2em] text-[#F3ECDD]/50">
-                        Free consultation
-                      </span>
-                    </div>
-
-                    <div>
-                      <label className="font-mono text-[10px] uppercase tracking-[0.2em] text-[#F3ECDD]/50">
-                        Name
-                      </label>
-                      <input
-                        required
-                        placeholder="Your name"
-                        value={formData.name}
-                        onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                        className={styles.inputEdit}
-                      />
-                    </div>
-
-                    <div>
-                      <label className="font-mono text-[10px] uppercase tracking-[0.2em] text-[#F3ECDD]/50">
-                        Email
-                      </label>
-                      <input
-                        required
-                        type="email"
-                        placeholder="you@company.com"
-                        value={formData.email}
-                        onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                        className={styles.inputEdit}
-                      />
-                    </div>
-
-                    <div>
-                      <label className="font-mono text-[10px] uppercase tracking-[0.2em] text-[#F3ECDD]/50">
-                        Message
-                      </label>
-                      <textarea
-                        placeholder="Tell us about your project"
-                        rows={3}
-                        value={formData.message}
-                        onChange={(e) => setFormData({ ...formData, message: e.target.value })}
-                        className={`${styles.inputEdit} resize-none`}
-                      />
-                    </div>
-
-                    <button className="group relative w-full overflow-hidden bg-[#D4A84B] py-4 font-mono text-sm uppercase tracking-wide text-[#14110F] transition-colors">
-                      <span className="relative z-10">Send message →</span>
-                      <span className="absolute inset-0 translate-x-full bg-[#F3ECDD] transition-transform duration-300 group-hover:translate-x-0" />
-                    </button>
-                  </form>
-                )}
-              </div>
-            </div>
-          </Reveal>
+          {/* RIGHT — removed contact form */}
         </div>
       </div>
 
