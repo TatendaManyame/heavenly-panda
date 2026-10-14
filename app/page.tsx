@@ -1,9 +1,9 @@
 // app/page.tsx
 import Navbar from "@/components/Navbar";
 import  Hero  from "@/components/Hero";
-import TrustedLogos from "@/components/TrustedLogos";
 //import { StatsBand } from "@/components/Stats";
 import { WhoWeAre } from "@/components/WhoWeAre";
+import TrustedLogos from "@/components/TrustedLogos";
 import { Services } from "@/components/Services";
 import { Process } from "@/components/Process";
 import { WhyUs } from "@/components/WhyUs";
@@ -15,8 +15,8 @@ export default function Home() {
     <main className="relative bg-[#F3ECDD] text-[#1A1A1A] font-sans overflow-hidden">
       <Navbar />
       <Hero />
-      <TrustedLogos />
       <WhoWeAre />
+      <TrustedLogos />
       <Services />
       <Process />
       <WhyUs />

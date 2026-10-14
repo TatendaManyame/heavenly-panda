@@ -19,12 +19,10 @@ const QUICK_LINKS = [
 ];
 
 const SERVICES_LIST = [
-  "Strategy Consulting",
-  "Brand Development",
-  "Content Creation",
-  "Social Media Management",
-  "Digital Marketing",
-  "Creative Design",
+  "Business strategy",
+  "Graphic design",
+  "Photography & video",
+  "Social media",
 ];
 
 const SOCIALS = [
@@ -59,7 +57,7 @@ function ColumnHeading({ children }: { children: React.ReactNode }) {
   return (
     <div className="mb-6 flex items-center gap-3">
       <span className="h-px w-6 bg-[#D4A84B]/60" />
-      <h3 className="font-clash text-sm font-semibold uppercase tracking-[0.2em] text-[#14110F]">
+      <h3 className="font-sans text-sm font-semibold uppercase tracking-[0.2em] text-[#14110F]">
         {children}
       </h3>
     </div>
@@ -78,7 +76,7 @@ export default function Footer() {
               <div className="relative h-24 w-56 sm:h-28 sm:w-64 md:h-32 md:w-72 lg:h-36 lg:w-80">
                 <Image
                   src="/logo.png"
-                  alt="Heavenly Panda Consulting"
+                  alt="Heavenly Panda Media"
                   fill
                   priority
                   sizes="(max-width: 768px) 256px, 320px"
@@ -88,8 +86,8 @@ export default function Footer() {
             </Link>
 
             <p className="mt-4 max-w-xs text-sm leading-relaxed text-[#6B6B6B]">
-              Strategy, branding, content and social media designed to help
-              ambitious businesses grow with clarity and confidence.
+              Photography, film, design and social content for business, events
+              and travel — captured with intention, delivered on time.
             </p>
 
             <div className="mt-7 flex items-center gap-3">
@@ -180,7 +178,7 @@ export default function Footer() {
       {/* Bottom bar */}
       <div className="border-t border-[#14110F]/10">
         <div className="mx-auto flex max-w-7xl flex-col items-center justify-between gap-4 px-6 py-6 text-xs text-[#6B6B6B] md:flex-row">
-          <p>© {new Date().getFullYear()} Heavenly Panda Consulting. All rights reserved.</p>
+          <p>© {new Date().getFullYear()} Heavenly Panda Media. All rights reserved.</p>
           <div className="flex items-center gap-6">
             <Link href="/privacy" className="transition-colors duration-300 hover:text-[#D4A84B]">
               Privacy Policy
