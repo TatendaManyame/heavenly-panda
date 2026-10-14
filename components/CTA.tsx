@@ -29,9 +29,9 @@ function ConsultationModal({ isOpen, onClose }: { isOpen: boolean; onClose: () =
   };
 
   const handleBack = () => {
-    // Check if any form field has content
-    const hasContent = formData.name || formData.email || formData.company || formData.message;
-    
+    const hasContent =
+      formData.name || formData.email || formData.company || formData.message;
+
     if (hasContent) {
       setShowBackConfirm(true);
     } else {
@@ -53,7 +53,6 @@ function ConsultationModal({ isOpen, onClose }: { isOpen: boolean; onClose: () =
     <AnimatePresence>
       {isOpen && (
         <>
-          {/* Backdrop */}
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
@@ -61,8 +60,7 @@ function ConsultationModal({ isOpen, onClose }: { isOpen: boolean; onClose: () =
             onClick={onClose}
             className="fixed inset-0 z-[999] bg-[#14110F]/80 backdrop-blur-md"
           />
-          
-          {/* Modal */}
+
           <motion.div
             initial={{ opacity: 0, scale: 0.9, y: 20 }}
             animate={{ opacity: 1, scale: 1, y: 0 }}
@@ -72,7 +70,6 @@ function ConsultationModal({ isOpen, onClose }: { isOpen: boolean; onClose: () =
             onClick={(e) => e.stopPropagation()}
           >
             <div className="relative w-full max-w-lg rounded-2xl bg-[#FCFBF8] shadow-2xl overflow-hidden">
-              {/* Close Button - Top Right */}
               <button
                 onClick={handleBack}
                 className="absolute right-4 top-4 z-10 flex h-10 w-10 items-center justify-center rounded-full bg-[#14110F]/5 hover:bg-[#14110F]/10 transition-colors group"
@@ -81,7 +78,6 @@ function ConsultationModal({ isOpen, onClose }: { isOpen: boolean; onClose: () =
                 <FaTimes className="h-4 w-4 text-[#14110F] group-hover:rotate-90 transition-transform duration-300" />
               </button>
 
-              {/* Go Back Button - Bottom Left */}
               <button
                 onClick={handleBack}
                 className="absolute bottom-4 left-4 z-10 flex items-center gap-2 text-xs text-[#6B6B6B] hover:text-[#14110F] transition-colors group"
@@ -90,24 +86,22 @@ function ConsultationModal({ isOpen, onClose }: { isOpen: boolean; onClose: () =
                 Go Back
               </button>
 
-              {/* Modal Header */}
               <div className="bg-[#14110F] px-8 py-6 pr-16">
                 <h3 className="font-clash text-2xl font-semibold text-[#F3ECDD]">
                   Book Your Consultation
                 </h3>
                 <p className="mt-1 text-sm text-[#F3ECDD]/60">
-                  Fill in the details and we'll get back to you within 24 hours.
+                  Fill in the details and we&apos;ll get back to you within 24 hours.
                 </p>
               </div>
 
-              {/* Modal Body */}
               <div className="px-8 py-6 pb-16">
                 {submitted ? (
                   <div className="flex min-h-[200px] flex-col items-center justify-center text-center">
                     <div className="text-5xl mb-4">🎉</div>
                     <h4 className="font-clash text-xl font-semibold text-[#14110F]">Thank You!</h4>
                     <p className="mt-2 text-sm text-[#5E5A54]">
-                      We've received your consultation request. We'll be in touch within 24 hours.
+                      We&apos;ve received your consultation request. We&apos;ll be in touch within 24 hours.
                     </p>
                   </div>
                 ) : (
@@ -185,7 +179,6 @@ function ConsultationModal({ isOpen, onClose }: { isOpen: boolean; onClose: () =
         </>
       )}
 
-      {/* Back Confirmation Modal */}
       <AnimatePresence>
         {showBackConfirm && (
           <>
@@ -258,91 +251,55 @@ export function CTA() {
     <>
       <section
         id="contact"
-        className="relative overflow-hidden bg-gradient-to-b from-white via-[#FDF9F2] to-white px-6 py-20 sm:py-24"
+        className="relative overflow-hidden bg-[#D4A84B] px-6 py-24 sm:py-32"
       >
-        {/* Background — one glow, one hairline grid */}
-        <div className="pointer-events-none absolute inset-0">
-          <div className="absolute right-[-10%] top-[-20%] h-[380px] w-[380px] rounded-full bg-[#D4A84B]/[0.09] blur-[140px]" />
-          <div
-            className="absolute inset-0 opacity-[0.03]"
-            style={{
-              backgroundImage:
-                "radial-gradient(circle at 20px 20px, #D4A84B 1.5px, transparent 1.5px)",
-              backgroundSize: "40px 40px",
-            }}
-          />
-        </div>
+        <div className="relative mx-auto max-w-6xl">
+          <div className="grid grid-cols-1 items-center gap-12 md:grid-cols-[1.4fr_1fr] md:gap-16">
+            {/* Left: heading + copy */}
+            <Reveal>
+              <h2 className="font-sans text-5xl font-bold leading-[0.95] tracking-tight text-[#14110F] sm:text-6xl md:text-7xl">
+                Ready to book?
+              </h2>
 
-        <div className="relative mx-auto max-w-xl text-center">
-          <Reveal>
-            <span className="inline-flex items-center gap-3 text-[11px] uppercase tracking-[0.35em] text-[#D4A84B]/80">
-              <span className="h-px w-6 bg-[#D4A84B]/50" />
-              Let&apos;s Talk
-              <span className="h-px w-6 bg-[#D4A84B]/50" />
-            </span>
+              <p className="mt-6 max-w-xl text-lg leading-relaxed text-[#14110F]/85 sm:text-xl">
+                Message us on WhatsApp to book a package, check a date or ask a
+                question.
+              </p>
+            </Reveal>
 
-            <h2 className="mt-5 font-clash text-4xl font-bold leading-[1.1] text-[#14110F] sm:text-5xl">
-              Ready to{" "}
-              <span className="font-serif italic font-normal text-[#D4A84B]">
-                grow?
-              </span>
-            </h2>
-
-            <p className="mx-auto mt-5 max-w-md text-base leading-relaxed text-[#4A4A4A] sm:text-lg">
-              Book a free 30-minute consultation. We&apos;ll listen first, then
-              tell you exactly how we&apos;d approach your situation.
-            </p>
-
-            <p className="mt-2 text-sm font-light text-[#6B6B6B]">
-              No commitment — just a conversation about your brand.
-            </p>
-
-            {/* Magnetic button */}
-            <div
-              ref={buttonRef}
-              onMouseMove={handleMouseMove}
-              onMouseLeave={handleMouseLeave}
-              className="mt-8 inline-block"
-            >
-              <motion.div style={{ x: springX, y: springY }}>
-                <button
-                  onClick={() => setIsModalOpen(true)}
-                  className="group relative inline-flex items-center gap-2.5 rounded-full bg-[#14110F] px-8 py-3.5 text-sm font-semibold text-white shadow-lg shadow-[#D4A84B]/10 transition-colors duration-400 hover:bg-[#D4A84B] hover:text-[#14110F] hover:shadow-[#D4A84B]/30"
+            {/* Right: WhatsApp CTA */}
+            <Reveal delay={150}>
+              <div className="flex flex-col items-start gap-4 md:items-end">
+                <a
+                  href="https://wa.me/8615110119513"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="group inline-flex items-center gap-3 rounded-full bg-[#14110F] px-8 py-4 text-base font-semibold text-white shadow-lg transition-colors duration-300 hover:bg-[#0a0908]"
                 >
-                  Book your consultation
                   <svg
-                    width="16"
-                    height="16"
+                    width="20"
+                    height="20"
                     viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    strokeWidth="2.5"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    className="transition-transform duration-300 group-hover:translate-x-1"
+                    fill="currentColor"
+                    aria-hidden="true"
                   >
-                    <path d="M5 12h14M12 5l7 7-7 7" />
+                    <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z" />
                   </svg>
-                </button>
-              </motion.div>
-            </div>
+                  Chat on WhatsApp
+                </a>
 
-            {/* Trust line */}
-            <div className="mt-10 flex flex-wrap items-center justify-center gap-x-5 gap-y-2 border-t border-[#D4A84B]/10 pt-6 text-xs text-[#6B6B6B]">
-              {TRUST.map((item, i) => (
-                <span key={item} className="flex items-center gap-x-5">
-                  {item}
-                  {i < TRUST.length - 1 && (
-                    <span className="hidden text-[#D4A84B]/40 sm:inline">·</span>
-                  )}
-                </span>
-              ))}
-            </div>
-          </Reveal>
+                <a
+                  href="tel:+8615110119513"
+                  className="text-sm font-medium text-[#14110F] underline underline-offset-4 transition-opacity hover:opacity-70"
+                >
+                  +86 151 1011 9513
+                </a>
+              </div>
+            </Reveal>
+          </div>
         </div>
       </section>
 
-      {/* Consultation Modal */}
       <ConsultationModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} />
     </>
   );

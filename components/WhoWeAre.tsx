@@ -8,19 +8,19 @@ import { Reveal, RevealGroup } from "./Reveal";
 const VALUES = [
   {
     title: "Creative Excellence",
-    body: "We combine bold creative direction with technical craft to deliver media that truly stands out.",
+    body: "Bold creative direction paired with technical craft — media that truly stands out.",
   },
   {
-    title: "Innovation First",
-    body: "Embracing cutting-edge tools and visual approaches to keep our clients ahead of the curve.",
+    title: "Storytelling First",
+    body: "Every shoot begins with a story. We shape visuals that connect, not just impress.",
   },
   {
     title: "Global Perspective",
-    body: "Bridging markets across Beijing, UAE, and beyond with culturally intelligent media solutions.",
+    body: "Bridging Beijing, UAE and beyond with culturally intelligent media production.",
   },
   {
-    title: "Results Driven",
-    body: "Focused on delivering tangible outcomes that grow your brand visibility and bottom line.",
+    title: "Built to Last",
+    body: "Photos, films and content designed for long-term brand value, not quick posts.",
   },
 ];
 
@@ -28,12 +28,12 @@ const MISSION_VISION = [
   {
     n: "01",
     title: "Our Mission",
-    text: "To create impactful media and branding solutions that resonate with target audiences, elevating businesses through strategic storytelling and creative excellence.",
+    text: "To capture moments that can't be re-lived — through photography, film and content that help brands, events and people tell their story with clarity and craft.",
   },
   {
     n: "02",
     title: "Our Vision",
-    text: "To become the leading integrated creative studio for growing brands across the Middle East and Asia — known for delivering measurable results through design, photography, and videography.",
+    text: "To become the go-to media studio for growing brands and milestone moments across the Middle East and Asia — known for work clients are proud to share.",
   },
 ];
 
@@ -49,8 +49,8 @@ export function WhoWeAre() {
   }, [images.length]);
 
   return (
-    <section className="relative overflow-hidden bg-[#FCFBF8] py-28 sm:py-36">
-      {/* Background — one restrained glow + fine ledger grid, matching sibling sections */}
+    <section className="relative overflow-hidden bg-[#FCFBF8] py-20 sm:py-28">
+      {/* Background — one restrained glow + fine ledger grid */}
       <div className="pointer-events-none absolute inset-0">
         <div className="absolute -right-32 top-0 h-[480px] w-[480px] rounded-full bg-[#D4A84B]/[0.06] blur-[160px]" />
         <div
@@ -64,51 +64,56 @@ export function WhoWeAre() {
       </div>
 
       <div className="relative mx-auto max-w-7xl px-6">
-        <div className="grid items-start gap-16 lg:grid-cols-2 lg:gap-20">
+        {/* Heading block — left aligned, matches new "Packages"/"How it works" style */}
+        <Reveal>
+          <span className="inline-flex items-center gap-3 text-[11px] uppercase tracking-[0.35em] text-[#D4A84B]/80">
+            <span className="h-px w-8 bg-[#D4A84B]/60" />
+            Who We Are
+          </span>
+        </Reveal>
+
+        <Reveal delay={100}>
+          <h2 className="mt-6 max-w-3xl font-sans text-4xl font-bold leading-[1.05] tracking-tight text-[#14110F] sm:text-5xl md:text-6xl">
+            Heavenly Panda{" "}
+            <span className="text-[#D4A84B]">Media</span>
+          </h2>
+        </Reveal>
+
+        <Reveal delay={200}>
+          <p className="mt-6 max-w-2xl text-base leading-relaxed text-[#4A4A4A] sm:text-lg">
+            A Beijing &amp; UAE-based media studio capturing business, events and
+            travel through photography, film and content. One team that plans it,
+            shoots it and makes it work for you.
+          </p>
+        </Reveal>
+
+        {/* Two-column block: copy + image carousel */}
+        <div className="mt-16 grid items-start gap-16 lg:grid-cols-2 lg:gap-20">
           {/* Left column */}
           <div>
-            <Reveal delay={100}>
-              <span className="inline-flex items-center gap-3 text-[11px] uppercase tracking-[0.35em] text-[#D4A84B]/80">
-                <span className="h-px w-8 bg-[#D4A84B]/60" />
-                Who We Are
-              </span>
-            </Reveal>
-
-            <Reveal delay={200}>
-              <h2 className="mt-6 font-clash text-4xl font-bold leading-[1.1] text-[#14110F] sm:text-5xl">
-                Heavenly Panda
-                <br />
-                <span className="font-serif italic font-normal text-[#D4A84B]">
-                  Creative
-                </span>
-              </h2>
-            </Reveal>
-
             <RevealGroup stagger={150} delay={300}>
-              <div className="mt-6 space-y-4">
-                <p className="text-lg leading-relaxed text-[#5E5A54]">
-                  A Beijing &amp; UAE-based digital creative and marketing business
-                  that bridges strategic thinking with visual execution. We work
-                  with brands at every stage from startups building their visual
-                  identity to established businesses refreshing their media
-                  presence and scaling their footprint.
+              <div className="space-y-5">
+                <p className="text-base leading-relaxed text-[#4A4A4A] sm:text-lg">
+                  We work with brands at every stage — from founders building
+                  their visual identity, to established businesses refreshing
+                  their media presence and scaling their footprint. Events,
+                  campaigns and milestones, captured with intention.
                 </p>
-                <p className="text-lg leading-relaxed text-[#5E5A54]">
-                  What sets us apart is our integrated model: branding, graphic
-                  design, photography, and videography handled in-house by a
-                  single team, aligned on your goals. No fragmented briefings. No
-                  creative-strategy disconnect. Just focused, cohesive media that
-                  performs.
+                <p className="text-base leading-relaxed text-[#4A4A4A] sm:text-lg">
+                  What sets us apart is our integrated approach: photography,
+                  videography, graphic design and social content handled in-house
+                  by a single team. No fragmented briefings. No creative-strategy
+                  disconnect. Just focused, cohesive media that performs.
                 </p>
               </div>
             </RevealGroup>
 
-            {/* Mission & Vision */}
-            <div className="mt-10 grid gap-5 sm:grid-cols-2">
+            {/* Mission & Vision — cleaner cards */}
+            <div className="mt-12 grid gap-5 sm:grid-cols-2">
               {MISSION_VISION.map((item, i) => (
                 <Reveal key={item.title} delay={400 + i * 100} direction="up">
-                  <div className="group relative rounded-2xl border border-[#D4A84B]/15 bg-white/60 p-6 transition-colors duration-300 hover:border-[#D4A84B]/35">
-                    <span className="font-serif text-sm italic text-[#D4A84B]/60">
+                  <div className="group relative flex h-full flex-col rounded-2xl border border-[#14110F]/10 bg-white p-6 transition-all duration-300 hover:border-[#D4A84B]/40 hover:shadow-[0_8px_30px_rgba(0,0,0,0.05)]">
+                    <span className="font-serif text-sm italic text-[#D4A84B]">
                       {item.n}
                     </span>
                     <p className="mt-2 text-xs font-semibold uppercase tracking-[0.2em] text-[#D4A84B]">
@@ -117,7 +122,6 @@ export function WhoWeAre() {
                     <p className="mt-3 text-sm leading-relaxed text-[#4A4A4A]">
                       {item.text}
                     </p>
-                    <div className="mt-5 h-px w-8 bg-[#D4A84B]/40 transition-all duration-300 group-hover:w-full" />
                   </div>
                 </Reveal>
               ))}
@@ -146,7 +150,7 @@ export function WhoWeAre() {
                     >
                       <Image
                         src={images[currentImage]}
-                        alt={`Heavenly Panda Creative ${currentImage + 1}`}
+                        alt={`Heavenly Panda Media ${currentImage + 1}`}
                         fill
                         className="object-cover"
                         priority
@@ -222,16 +226,16 @@ export function WhoWeAre() {
           </div>
         </div>
 
-        {/* Values — a connected strip, not a fourth card grid */}
-        <div className="mt-24 border-t border-[#D4A84B]/15 pt-10">
-          <div className="grid divide-y divide-[#D4A84B]/10 sm:grid-cols-2 sm:divide-y-0 sm:divide-x lg:grid-cols-4">
+        {/* Values — connected strip */}
+        <div className="mt-24 border-t border-[#14110F]/10 pt-10">
+          <div className="grid divide-y divide-[#14110F]/10 sm:grid-cols-2 sm:divide-y-0 sm:divide-x lg:grid-cols-4">
             {VALUES.map((v, i) => (
               <Reveal key={v.title} delay={500 + i * 100} direction="up">
                 <div className="group py-6 sm:px-6 sm:py-0">
-                  <span className="font-serif text-sm italic text-[#D4A84B]/60">
+                  <span className="font-serif text-sm italic text-[#D4A84B]">
                     {String(i + 1).padStart(2, "0")}
                   </span>
-                  <h3 className="mt-2 font-clash text-base font-semibold text-[#14110F] transition-colors group-hover:text-[#D4A84B]">
+                  <h3 className="mt-2 font-sans text-base font-bold text-[#14110F] transition-colors group-hover:text-[#D4A84B]">
                     {v.title}
                   </h3>
                   <p className="mt-2 text-sm leading-relaxed text-[#6B6B6B]">

@@ -65,38 +65,38 @@ const FAQS = [
   {
     question: "What services does Heavenly Panda offer?",
     answer:
-      "We offer a comprehensive range of services including strategy consulting, brand identity design, content creation, social media management, and digital marketing. Our integrated approach ensures all services work together seamlessly to drive growth for your brand.",
+      "We offer a comprehensive range of media services including business strategy, graphic design, photography & video, and social media management. Our integrated approach ensures all services work together seamlessly to capture and share your story.",
   },
   {
-    question: "How long does a typical project take?",
+    question: "How long does a typical shoot take?",
     answer:
-      "Project timelines vary depending on scope and complexity. A typical branding project takes 4-8 weeks, while strategy consulting can range from 2-12 weeks. We always provide clear timelines during our initial consultation and keep you updated throughout the process.",
+      "Shoot lengths vary by package and scope. Standard studio shoots run 1 hour, while events and full-day coverage can run 4–8 hours. We always confirm timelines and delivery windows before your shoot date.",
   },
   {
     question: "Do you work with international clients?",
     answer:
-      "Yes! With studios in Beijing and Dubai, we work with clients globally. Our team is experienced in cross-cultural communication and can adapt to different time zones and business practices. We've successfully served clients across Asia, the Middle East, Europe, and North America.",
+      "Yes! With studios in Beijing and Dubai, we work with clients globally. Our team is experienced in cross-cultural communication and can adapt to different time zones and business practices. We've served clients across Asia, the Middle East, Europe, and North America.",
   },
   {
     question: "What's your pricing structure?",
     answer:
-      "We offer flexible pricing models tailored to each client's needs. This includes project-based fees, retainer agreements, and performance-based structures. We provide detailed proposals with transparent pricing after understanding your specific requirements.",
+      "We offer transparent, fixed-price packages for photography, events and social content. Custom work is quoted per brief. A 50% deposit secures your date, and the balance is due on or before the shoot day.",
   },
   {
-    question: "Do you offer social media management?",
+    question: "How do we book?",
     answer:
-      "Absolutely! Our social media management includes content strategy, content creation, posting, community management, and analytics reporting. We manage platforms including Instagram, LinkedIn, YouTube, Facebook, and more, with strategies tailored to each platform.",
+      "Message us on WhatsApp with the package you're interested in and a preferred date. We'll confirm availability, send a quote and deposit details, and lock in your booking once the deposit is received.",
   },
   {
-    question: "How do you measure success?",
+    question: "What's not included?",
     answer:
-      "We use a combination of metrics depending on your goals. This includes brand awareness metrics (reach, impressions, engagement), conversion metrics (leads, sales), and brand sentiment analysis. We provide regular reports and adjust strategies based on data-driven insights.",
+      "Unless listed in your package: make-up, props, venue hire, music licences, permits and ad spend. We're happy to help coordinate these on request.",
   },
 ];
 
 const HERO_IMAGES = [
-  { src: "/hero2.jpeg", alt: "Heavenly Panda - Strategy" },
-  { src: "/hero3.jpeg", alt: "Heavenly Panda - Creative" },
+  { src: "/hero2.jpeg", alt: "Heavenly Panda — strategy" },
+  { src: "/hero3.jpeg", alt: "Heavenly Panda — creative" },
 ];
 
 function FAQItem({
@@ -113,13 +113,13 @@ function FAQItem({
   index: number;
 }) {
   return (
-    <div className="group relative overflow-hidden border-b border-[#D4A84B]/10 last:border-0">
+    <div className="group relative overflow-hidden border-b border-[#14110F]/10 last:border-0">
       <button
         onClick={onToggle}
-        className="relative z-10 flex w-full items-center justify-between py-5 text-left transition-colors hover:text-[#D4A84B]"
+        className="relative z-10 flex w-full items-center justify-between py-5 text-left transition-colors"
       >
-        <span className="flex items-center gap-3 pr-4 font-clash text-base font-medium text-[#14110F] transition-colors group-hover:text-[#D4A84B] sm:text-lg">
-          <span className="font-mono text-sm text-[#D4A84B] opacity-50">
+        <span className="flex items-center gap-3 pr-4 font-sans text-base font-bold text-[#14110F] transition-colors group-hover:text-[#D4A84B] sm:text-lg">
+          <span className="font-serif text-sm italic text-[#D4A84B]">
             {(index + 1).toString().padStart(2, "0")}
           </span>
           {question}
@@ -143,7 +143,7 @@ function FAQItem({
             className="overflow-hidden"
           >
             <div className="pb-5">
-              <p className="pl-9 text-sm leading-relaxed text-[#5E5A54] sm:pl-14 sm:text-base">
+              <p className="pl-9 text-sm leading-relaxed text-[#4A4A4A] sm:pl-14 sm:text-base">
                 {answer}
               </p>
             </div>
@@ -172,7 +172,7 @@ export default function ContactPage() {
   useEffect(() => {
     if (!particlesRef.current) return;
     const container = particlesRef.current;
-    const particleCount = 40;
+    const particleCount = 30;
 
     for (let i = 0; i < particleCount; i++) {
       const particle = document.createElement("div");
@@ -217,7 +217,7 @@ export default function ContactPage() {
     <>
       <main className="relative overflow-hidden bg-[#FCFBF8]">
         {/* Hero with rotating background */}
-        <section className="relative overflow-hidden bg-[#14110F] py-20 sm:py-24 md:py-28">
+        <section className="relative overflow-hidden bg-[#14110F] py-24 sm:py-28 md:py-32">
           {/* Rotating Background Images */}
           <div className="absolute inset-0 z-0">
             <AnimatePresence mode="sync">
@@ -241,10 +241,10 @@ export default function ContactPage() {
             </AnimatePresence>
           </div>
 
-          {/* Strong overlays for text visibility */}
+          {/* Overlays for text visibility */}
           <div className="absolute inset-0 z-0 bg-gradient-to-b from-[#14110F]/90 via-[#14110F]/80 to-[#14110F]/92" />
           <div className="absolute inset-0 z-0 bg-[#14110F]/60" />
-          
+
           {/* Decorative glow */}
           <div className="pointer-events-none absolute inset-0 z-0">
             <div className="absolute left-1/2 top-0 h-[420px] w-[600px] -translate-x-1/2 rounded-full bg-[#D4A84B]/[0.10] blur-[160px]" />
@@ -258,14 +258,16 @@ export default function ContactPage() {
             />
           </div>
 
-          {/* Image counter/dots */}
+          {/* Image dots */}
           <div className="absolute bottom-8 left-1/2 z-10 flex -translate-x-1/2 gap-2">
             {HERO_IMAGES.map((_, index) => (
               <button
                 key={index}
                 onClick={() => setActiveImage(index)}
                 className={`h-1.5 rounded-full transition-all duration-500 ${
-                  activeImage === index ? "w-8 bg-[#D4A84B]" : "w-1.5 bg-[#F3ECDD]/30 hover:bg-[#F3ECDD]/60"
+                  activeImage === index
+                    ? "w-8 bg-[#D4A84B]"
+                    : "w-1.5 bg-[#F3ECDD]/30 hover:bg-[#F3ECDD]/60"
                 }`}
                 aria-label={`View image ${index + 1}`}
               />
@@ -283,20 +285,17 @@ export default function ContactPage() {
               </Reveal>
 
               <Reveal delay={100}>
-                <h1 className="mt-6 font-clash text-4xl font-bold leading-[1.1] text-[#F3ECDD] sm:text-5xl md:text-6xl">
+                <h1 className="mt-6 font-sans text-4xl font-bold leading-[1.05] tracking-tight text-[#F3ECDD] sm:text-5xl md:text-6xl">
                   Let&apos;s create
                   <br />
-                  <span className="font-serif italic font-normal text-[#D4A84B]">
-                    something remarkable.
-                  </span>
+                  <span className="text-[#D4A84B]">something remarkable.</span>
                 </h1>
               </Reveal>
 
               <Reveal delay={200}>
                 <p className="mx-auto mt-6 max-w-xl text-base leading-relaxed text-[#F3ECDD]/80 sm:text-lg">
                   Have a project in mind? We&apos;d love to hear about it.
-                  Let&apos;s start a conversation and bring your vision to
-                  life.
+                  Let&apos;s start a conversation and bring your vision to life.
                 </p>
               </Reveal>
 
@@ -328,7 +327,7 @@ export default function ContactPage() {
         </section>
 
         {/* Contact content */}
-        <section className="relative py-16 sm:py-20">
+        <section className="relative py-20 sm:py-28">
           <div className="pointer-events-none absolute inset-0">
             <div className="absolute -right-32 top-0 h-[480px] w-[480px] rounded-full bg-[#D4A84B]/[0.06] blur-[160px]" />
             <div
@@ -342,25 +341,25 @@ export default function ContactPage() {
           </div>
 
           <div className="relative mx-auto max-w-7xl px-6">
-            <div className="mt-16 grid gap-12 lg:grid-cols-[1fr_0.85fr] lg:gap-16">
+            <div className="grid gap-12 lg:grid-cols-[1fr_0.85fr] lg:gap-16">
               {/* Form */}
               <Reveal delay={100}>
                 <div
                   id="contact-form"
-                  className="rounded-3xl bg-[#14110F] p-8 text-[#F3ECDD] shadow-2xl sm:p-10"
+                  className="rounded-2xl border border-[#14110F]/10 bg-white p-8 shadow-[0_2px_20px_rgba(0,0,0,0.04)] sm:p-10"
                 >
                   {status === "sent" ? (
                     <div className="flex min-h-[320px] flex-col items-center justify-center text-center">
-                      <span className="font-serif text-4xl italic text-[#D4A84B]">
+                      <span className="font-sans text-3xl font-bold text-[#14110F]">
                         Thank you.
                       </span>
-                      <p className="mt-3 max-w-xs text-sm text-[#F3ECDD]/60">
+                      <p className="mt-3 max-w-xs text-sm text-[#4A4A4A]">
                         We&apos;ve received your message and will reply within
                         one business day.
                       </p>
                       <button
                         onClick={() => setStatus("idle")}
-                        className="mt-6 text-sm text-[#D4A84B] transition-colors hover:text-[#F3ECDD]"
+                        className="mt-6 text-sm font-medium text-[#D4A84B] transition-colors hover:text-[#14110F]"
                       >
                         Send another message →
                       </button>
@@ -368,10 +367,10 @@ export default function ContactPage() {
                   ) : (
                     <form onSubmit={handleSubmit} className="space-y-6">
                       <div>
-                        <h2 className="font-clash text-2xl font-semibold">
-                          Start a Project
+                        <h2 className="font-sans text-2xl font-bold text-[#14110F]">
+                          Start a project
                         </h2>
-                        <p className="mt-1 text-sm text-[#F3ECDD]/50">
+                        <p className="mt-1 text-sm text-[#4A4A4A]">
                           Fill in the form and we&apos;ll get back to you
                           within 24 hours.
                         </p>
@@ -379,7 +378,7 @@ export default function ContactPage() {
 
                       <div className="grid gap-6 sm:grid-cols-2">
                         <div>
-                          <label className="text-xs uppercase tracking-[0.2em] text-[#D4A84B]/80">
+                          <label className="text-xs font-medium uppercase tracking-[0.2em] text-[#D4A84B]">
                             Name *
                           </label>
                           <input
@@ -389,12 +388,12 @@ export default function ContactPage() {
                             onChange={(e) =>
                               setFormData({ ...formData, name: e.target.value })
                             }
-                            className="mt-2 w-full border-b border-[#F3ECDD]/20 bg-transparent pb-2 text-[#F3ECDD] outline-none transition-colors placeholder:text-[#F3ECDD]/30 focus:border-[#D4A84B]"
+                            className="mt-2 w-full rounded-lg border border-[#14110F]/10 bg-white px-4 py-3 text-[#14110F] outline-none transition-colors placeholder:text-[#6B6B6B]/60 focus:border-[#D4A84B] focus:ring-2 focus:ring-[#D4A84B]/20"
                             placeholder="Your name"
                           />
                         </div>
                         <div>
-                          <label className="text-xs uppercase tracking-[0.2em] text-[#D4A84B]/80">
+                          <label className="text-xs font-medium uppercase tracking-[0.2em] text-[#D4A84B]">
                             Email *
                           </label>
                           <input
@@ -404,14 +403,14 @@ export default function ContactPage() {
                             onChange={(e) =>
                               setFormData({ ...formData, email: e.target.value })
                             }
-                            className="mt-2 w-full border-b border-[#F3ECDD]/20 bg-transparent pb-2 text-[#F3ECDD] outline-none transition-colors placeholder:text-[#F3ECDD]/30 focus:border-[#D4A84B]"
+                            className="mt-2 w-full rounded-lg border border-[#14110F]/10 bg-white px-4 py-3 text-[#14110F] outline-none transition-colors placeholder:text-[#6B6B6B]/60 focus:border-[#D4A84B] focus:ring-2 focus:ring-[#D4A84B]/20"
                             placeholder="you@company.com"
                           />
                         </div>
                       </div>
 
                       <div>
-                        <label className="text-xs uppercase tracking-[0.2em] text-[#D4A84B]/80">
+                        <label className="text-xs font-medium uppercase tracking-[0.2em] text-[#D4A84B]">
                           Company
                         </label>
                         <input
@@ -420,13 +419,13 @@ export default function ContactPage() {
                           onChange={(e) =>
                             setFormData({ ...formData, company: e.target.value })
                           }
-                          className="mt-2 w-full border-b border-[#F3ECDD]/20 bg-transparent pb-2 text-[#F3ECDD] outline-none transition-colors placeholder:text-[#F3ECDD]/30 focus:border-[#D4A84B]"
+                          className="mt-2 w-full rounded-lg border border-[#14110F]/10 bg-white px-4 py-3 text-[#14110F] outline-none transition-colors placeholder:text-[#6B6B6B]/60 focus:border-[#D4A84B] focus:ring-2 focus:ring-[#D4A84B]/20"
                           placeholder="Optional"
                         />
                       </div>
 
                       <div>
-                        <label className="text-xs uppercase tracking-[0.2em] text-[#D4A84B]/80">
+                        <label className="text-xs font-medium uppercase tracking-[0.2em] text-[#D4A84B]">
                           Message *
                         </label>
                         <textarea
@@ -436,14 +435,14 @@ export default function ContactPage() {
                           onChange={(e) =>
                             setFormData({ ...formData, message: e.target.value })
                           }
-                          className="mt-2 w-full resize-none border-b border-[#F3ECDD]/20 bg-transparent pb-2 text-[#F3ECDD] outline-none transition-colors placeholder:text-[#F3ECDD]/30 focus:border-[#D4A84B]"
-                          placeholder="Tell us about your brand and goals"
+                          className="mt-2 w-full resize-none rounded-lg border border-[#14110F]/10 bg-white px-4 py-3 text-[#14110F] outline-none transition-colors placeholder:text-[#6B6B6B]/60 focus:border-[#D4A84B] focus:ring-2 focus:ring-[#D4A84B]/20"
+                          placeholder="Tell us about your shoot, event or goals"
                         />
                       </div>
 
                       <button
                         type="submit"
-                        className="group inline-flex items-center gap-2.5 rounded-full bg-[#D4A84B] px-8 py-3.5 text-sm font-semibold text-[#14110F] transition-all duration-300 hover:scale-[1.02] hover:bg-[#F3ECDD]"
+                        className="group inline-flex items-center gap-2.5 rounded-full bg-[#14110F] px-8 py-3.5 text-sm font-semibold text-[#F3ECDD] transition-colors duration-300 hover:bg-[#D4A84B] hover:text-[#14110F]"
                       >
                         Send message
                         <FaArrowRight className="transition-transform group-hover:translate-x-1" />
@@ -454,17 +453,18 @@ export default function ContactPage() {
               </Reveal>
 
               {/* Info sidebar */}
-              <div className="space-y-10">
+              <div className="space-y-6">
+                {/* Offices */}
                 <Reveal delay={150}>
-                  <div className="rounded-3xl border border-[#D4A84B]/15 bg-white/60 p-6 shadow-lg backdrop-blur-sm sm:p-8">
-                    <h3 className="font-clash text-xl font-semibold text-[#14110F]">
-                      Office Locations
+                  <div className="rounded-2xl border border-[#14110F]/10 bg-white p-6 shadow-[0_2px_20px_rgba(0,0,0,0.04)] sm:p-8">
+                    <h3 className="font-sans text-lg font-bold text-[#14110F]">
+                      Office locations
                     </h3>
-                    <div className="mt-6 space-y-4">
+                    <div className="mt-6 space-y-3">
                       {OFFICES.map((office) => (
                         <div
                           key={office.city}
-                          className="group flex gap-4 rounded-xl border border-[#D4A84B]/10 bg-white/50 p-4 transition-all duration-300 hover:border-[#D4A84B]/30 hover:shadow-md"
+                          className="group flex gap-4 rounded-xl border border-[#14110F]/10 bg-white p-4 transition-all duration-300 hover:border-[#D4A84B]/40 hover:shadow-[0_8px_30px_rgba(0,0,0,0.05)]"
                         >
                           <div className="relative h-16 w-16 shrink-0 overflow-hidden rounded-lg">
                             <Image
@@ -476,21 +476,21 @@ export default function ContactPage() {
                             />
                           </div>
                           <div>
-                            <p className="font-clash text-base font-semibold text-[#14110F]">
+                            <p className="font-sans text-base font-bold text-[#14110F]">
                               {office.city}
                             </p>
                             <p className="text-[10px] uppercase tracking-[0.2em] text-[#D4A84B]">
                               {office.country}
                             </p>
-                            <div className="mt-1 flex items-start gap-2 text-xs text-[#5E5A54]">
-                              <FaMapMarkerAlt className="mt-0.5 shrink-0 text-[10px] text-[#D4A84B]/70" />
+                            <div className="mt-1 flex items-start gap-2 text-xs text-[#4A4A4A]">
+                              <FaMapMarkerAlt className="mt-0.5 shrink-0 text-[10px] text-[#D4A84B]" />
                               <span>{office.lines.join(", ")}</span>
                             </div>
                             <Link
                               href={office.phoneHref}
-                              className="mt-1 flex items-center gap-2 text-xs text-[#5E5A54] transition-colors hover:text-[#D4A84B]"
+                              className="mt-1 flex items-center gap-2 text-xs text-[#4A4A4A] transition-colors hover:text-[#D4A84B]"
                             >
-                              <FaPhone className="shrink-0 text-[10px] text-[#D4A84B]/70" />
+                              <FaPhone className="shrink-0 text-[10px] text-[#D4A84B]" />
                               {office.phone}
                             </Link>
                           </div>
@@ -500,18 +500,19 @@ export default function ContactPage() {
                   </div>
                 </Reveal>
 
+                {/* Contact */}
                 <Reveal delay={250}>
-                  <div className="rounded-3xl border border-[#D4A84B]/15 bg-white/60 p-6 shadow-lg backdrop-blur-sm sm:p-8">
-                    <h3 className="font-clash text-xl font-semibold text-[#14110F]">
-                      Get in Touch
+                  <div className="rounded-2xl border border-[#14110F]/10 bg-white p-6 shadow-[0_2px_20px_rgba(0,0,0,0.04)] sm:p-8">
+                    <h3 className="font-sans text-lg font-bold text-[#14110F]">
+                      Get in touch
                     </h3>
-                    <div className="mt-6 space-y-4">
+                    <div className="mt-6 space-y-3">
                       <div className="flex items-center gap-3 rounded-lg p-3 transition-colors hover:bg-[#D4A84B]/5">
                         <div className="flex h-10 w-10 items-center justify-center rounded-full bg-[#D4A84B]/10">
                           <FaEnvelope className="text-sm text-[#D4A84B]" />
                         </div>
                         <div>
-                          <p className="text-xs text-[#5E5A54]">Email</p>
+                          <p className="text-xs text-[#4A4A4A]">Email</p>
                           <Link
                             href="mailto:heavenlypanda44@gmail.com"
                             className="text-sm text-[#14110F] transition-colors hover:text-[#D4A84B]"
@@ -530,7 +531,9 @@ export default function ContactPage() {
                             <FaPhone className="text-sm text-[#D4A84B]" />
                           </div>
                           <div>
-                            <p className="text-xs text-[#5E5A54]">{office.city} office</p>
+                            <p className="text-xs text-[#4A4A4A]">
+                              {office.city} office
+                            </p>
                             <Link
                               href={office.phoneHref}
                               className="text-sm text-[#14110F] transition-colors hover:text-[#D4A84B]"
@@ -544,13 +547,14 @@ export default function ContactPage() {
                   </div>
                 </Reveal>
 
+                {/* Socials */}
                 <Reveal delay={350}>
-                  <div className="rounded-3xl border border-[#D4A84B]/15 bg-white/60 p-6 shadow-lg backdrop-blur-sm sm:p-8">
-                    <h3 className="font-clash text-xl font-semibold text-[#14110F]">
-                      Connect With Us
+                  <div className="rounded-2xl border border-[#14110F]/10 bg-white p-6 shadow-[0_2px_20px_rgba(0,0,0,0.04)] sm:p-8">
+                    <h3 className="font-sans text-lg font-bold text-[#14110F]">
+                      Connect with us
                     </h3>
-                    <p className="mt-2 text-sm text-[#5E5A54]">
-                      Follow us on social media for updates and inspiration.
+                    <p className="mt-2 text-sm text-[#4A4A4A]">
+                      Follow along for recent work, behind-the-scenes and updates.
                     </p>
                     <div className="mt-6 flex items-center gap-3">
                       {SOCIALS.map(({ Icon, href, label }) => (
@@ -560,7 +564,7 @@ export default function ContactPage() {
                           target="_blank"
                           rel="noopener noreferrer"
                           aria-label={label}
-                          className="flex h-12 w-12 items-center justify-center rounded-full border border-[#D4A84B]/25 text-[#D4A84B] shadow-sm transition-all duration-300 hover:-translate-y-1 hover:border-[#D4A84B] hover:bg-[#D4A84B] hover:text-white hover:shadow-lg"
+                          className="flex h-12 w-12 items-center justify-center rounded-full border border-[#D4A84B]/30 text-[#D4A84B] shadow-sm transition-all duration-300 hover:-translate-y-1 hover:border-[#D4A84B] hover:bg-[#D4A84B] hover:text-white hover:shadow-lg"
                         >
                           <Icon className="h-4 w-4" />
                         </Link>
@@ -574,41 +578,20 @@ export default function ContactPage() {
         </section>
 
         {/* FAQ */}
-        <section className="relative overflow-hidden bg-[#F8F5F0] py-16 sm:py-20">
+        <section className="relative overflow-hidden bg-[#FCFBF8] py-20 sm:py-28">
           <div className="pointer-events-none absolute inset-0">
-            <div className="absolute -left-20 top-0 h-[500px] w-[500px] rounded-full opacity-[0.03] blur-2xl">
-              <Image src="/hero2.jpeg" alt="" fill className="rounded-full object-cover" />
-            </div>
-            <div className="absolute -right-20 bottom-0 h-[600px] w-[600px] rounded-full opacity-[0.03] blur-2xl">
-              <Image src="/hero3.jpeg" alt="" fill className="rounded-full object-cover" />
-            </div>
-          </div>
-
-          <div className="pointer-events-none absolute inset-0">
-            <motion.div
-              animate={{ x: [0, 30, -20, 0], y: [0, -30, 20, 0] }}
-              transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
-              className="absolute -left-20 top-20 h-[300px] w-[300px] rounded-full bg-[#D4A84B]/5 blur-[100px]"
-            />
-            <motion.div
-              animate={{ scale: [1, 1.2, 1], opacity: [0.3, 0.5, 0.3] }}
-              transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
-              className="absolute left-1/2 top-1/2 h-[400px] w-[400px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-[#D4A84B]/3 blur-[120px]"
+            <div className="absolute -right-32 top-0 h-[480px] w-[480px] rounded-full bg-[#D4A84B]/[0.06] blur-[160px]" />
+            <div
+              className="absolute inset-0 opacity-[0.035]"
+              style={{
+                backgroundImage:
+                  "linear-gradient(#D4A84B 1px, transparent 1px), linear-gradient(90deg, #D4A84B 1px, transparent 1px)",
+                backgroundSize: "56px 56px",
+              }}
             />
           </div>
 
           <div ref={particlesRef} className="pointer-events-none absolute inset-0" />
-
-          <div className="pointer-events-none absolute inset-0 opacity-[0.02]">
-            <div
-              className="absolute inset-0"
-              style={{
-                backgroundImage:
-                  "linear-gradient(rgba(20,17,15,0.1) 1px, transparent 1px), linear-gradient(90deg, rgba(20,17,15,0.1) 1px, transparent 1px)",
-                backgroundSize: "60px 60px",
-              }}
-            />
-          </div>
 
           <div className="relative mx-auto max-w-4xl px-6">
             <div className="text-center">
@@ -621,26 +604,22 @@ export default function ContactPage() {
               </Reveal>
 
               <Reveal delay={100}>
-                <h2 className="mt-6 font-clash text-3xl font-bold text-[#14110F] sm:text-4xl md:text-5xl">
-                  Frequently asked
-                  <br />
-                  <span className="font-serif italic font-normal text-[#D4A84B]">
-                    questions.
-                  </span>
+                <h2 className="mt-6 font-sans text-4xl font-bold leading-[1.05] tracking-tight text-[#14110F] sm:text-5xl md:text-6xl">
+                  Frequently asked questions.
                 </h2>
               </Reveal>
 
               <Reveal delay={200}>
-                <p className="mx-auto mt-4 max-w-2xl text-base leading-relaxed text-[#5E5A54] sm:text-lg">
-                  Find answers to common questions about our services,
-                  process, and how we can help your brand grow.
+                <p className="mx-auto mt-5 max-w-2xl text-base leading-relaxed text-[#4A4A4A] sm:text-lg">
+                  Find answers to common questions about our services, process,
+                  and how we can help your brand grow.
                 </p>
               </Reveal>
             </div>
 
             <Reveal delay={300}>
-              <div className="relative mt-12 overflow-hidden rounded-3xl border border-[#D4A84B]/10 bg-white/80 p-6 shadow-2xl backdrop-blur-md sm:p-8">
-                <div className="relative z-10 divide-y divide-[#D4A84B]/10">
+              <div className="relative mt-14 rounded-2xl border border-[#14110F]/10 bg-white p-6 shadow-[0_2px_20px_rgba(0,0,0,0.04)] sm:p-8">
+                <div className="relative z-10 divide-y divide-[#14110F]/10">
                   {FAQS.map((faq, index) => (
                     <FAQItem
                       key={index}
@@ -654,7 +633,7 @@ export default function ContactPage() {
                 </div>
 
                 <div className="relative z-10 mt-8 text-center">
-                  <p className="text-sm text-[#5E5A54]">
+                  <p className="text-sm text-[#4A4A4A]">
                     Still have questions?{" "}
                     <Link
                       href="#contact-form"

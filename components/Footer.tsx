@@ -59,7 +59,7 @@ function ColumnHeading({ children }: { children: React.ReactNode }) {
   return (
     <div className="mb-6 flex items-center gap-3">
       <span className="h-px w-6 bg-[#D4A84B]/60" />
-      <h3 className="font-clash text-sm font-semibold uppercase tracking-[0.2em] text-[#F3ECDD]">
+      <h3 className="font-clash text-sm font-semibold uppercase tracking-[0.2em] text-[#14110F]">
         {children}
       </h3>
     </div>
@@ -68,7 +68,7 @@ function ColumnHeading({ children }: { children: React.ReactNode }) {
 
 export default function Footer() {
   return (
-    <footer className="border-t border-[#D4A84B]/10 bg-[#14110F] text-[#F3ECDD]/65">
+    <footer className="border-t border-[#14110F]/10 bg-[#FCFBF8] text-[#4A4A4A]">
       {/* Main */}
       <div className="mx-auto max-w-7xl px-6 py-20">
         <div className="grid grid-cols-1 gap-14 md:grid-cols-2 lg:grid-cols-[1.3fr_1fr_1fr_1fr] lg:gap-12">
@@ -77,7 +77,7 @@ export default function Footer() {
             <Link href="/" className="group inline-block">
               <div className="relative h-24 w-56 sm:h-28 sm:w-64 md:h-32 md:w-72 lg:h-36 lg:w-80">
                 <Image
-                  src="/heavenly-logo2.jpeg"
+                  src="/logo.png"
                   alt="Heavenly Panda Consulting"
                   fill
                   priority
@@ -87,7 +87,7 @@ export default function Footer() {
               </div>
             </Link>
 
-            <p className="mt-4 max-w-xs text-sm leading-relaxed text-[#F3ECDD]/50">
+            <p className="mt-4 max-w-xs text-sm leading-relaxed text-[#6B6B6B]">
               Strategy, branding, content and social media designed to help
               ambitious businesses grow with clarity and confidence.
             </p>
@@ -100,7 +100,7 @@ export default function Footer() {
                   target="_blank"
                   rel="noopener noreferrer"
                   aria-label={label}
-                  className="flex h-9 w-9 items-center justify-center rounded-full border border-[#D4A84B]/20 text-[#D4A84B] transition-all duration-300 hover:-translate-y-0.5 hover:border-[#D4A84B] hover:bg-[#D4A84B] hover:text-[#14110F]"
+                  className="flex h-9 w-9 items-center justify-center rounded-full border border-[#D4A84B]/30 text-[#D4A84B] transition-all duration-300 hover:-translate-y-0.5 hover:border-[#D4A84B] hover:bg-[#D4A84B] hover:text-[#14110F]"
                 >
                   <Icon className="h-3.5 w-3.5" />
                 </Link>
@@ -116,9 +116,9 @@ export default function Footer() {
                 <li key={item.name}>
                   <Link
                     href={item.href}
-                    className="group/link inline-flex items-center gap-2 transition-colors duration-300 hover:text-[#D4A84B]"
+                    className="group/link inline-flex items-center gap-2 text-[#4A4A4A] transition-colors duration-300 hover:text-[#D4A84B]"
                   >
-                    <span className="h-1 w-1 rounded-full bg-[#D4A84B]/40 transition-colors duration-300 group-hover/link:bg-[#D4A84B]" />
+                    <span className="h-1 w-1 rounded-full bg-[#D4A84B]/50 transition-colors duration-300 group-hover/link:bg-[#D4A84B]" />
                     {item.name}
                   </Link>
                 </li>
@@ -132,8 +132,8 @@ export default function Footer() {
             <ul className="space-y-3.5 text-sm">
               {SERVICES_LIST.map((s) => (
                 <li key={s}>
-                  <span className="group/link inline-flex cursor-pointer items-center gap-2 transition-colors duration-300 hover:text-[#D4A84B]">
-                    <span className="h-1 w-1 rounded-full bg-[#D4A84B]/40 transition-colors duration-300 group-hover/link:bg-[#D4A84B]" />
+                  <span className="group/link inline-flex cursor-pointer items-center gap-2 text-[#4A4A4A] transition-colors duration-300 hover:text-[#D4A84B]">
+                    <span className="h-1 w-1 rounded-full bg-[#D4A84B]/50 transition-colors duration-300 group-hover/link:bg-[#D4A84B]" />
                     {s}
                   </span>
                 </li>
@@ -144,16 +144,16 @@ export default function Footer() {
           {/* Contact */}
           <div>
             <ColumnHeading>Contact Us</ColumnHeading>
-            <ul className="space-y-4 text-sm">
+            <ul className="space-y-4 text-sm text-[#4A4A4A]">
               <li className="flex items-start gap-3">
-                <FaMapMarkerAlt className="mt-1 shrink-0 text-[#D4A84B]/70" />
+                <FaMapMarkerAlt className="mt-1 shrink-0 text-[#D4A84B]" />
                 <div className="leading-relaxed">
                   <p>Beijing, China</p>
                   <p>Dubai South, UAE</p>
                 </div>
               </li>
               <li className="flex items-center gap-3">
-                <FaEnvelope className="shrink-0 text-[#D4A84B]/70" />
+                <FaEnvelope className="shrink-0 text-[#D4A84B]" />
                 <Link
                   href="mailto:heavenlypanda44@gmail.com"
                   className="transition-colors duration-300 hover:text-[#D4A84B]"
@@ -163,7 +163,7 @@ export default function Footer() {
               </li>
               {PHONES.map((phone) => (
                 <li key={phone.href} className="flex items-center gap-3">
-                  <FaPhone className="shrink-0 text-[#D4A84B]/70" />
+                  <FaPhone className="shrink-0 text-[#D4A84B]" />
                   <Link
                     href={phone.href}
                     className="transition-colors duration-300 hover:text-[#D4A84B]"
@@ -178,8 +178,8 @@ export default function Footer() {
       </div>
 
       {/* Bottom bar */}
-      <div className="border-t border-[#D4A84B]/10">
-        <div className="mx-auto flex max-w-7xl flex-col items-center justify-between gap-4 px-6 py-6 text-xs text-[#F3ECDD]/40 md:flex-row">
+      <div className="border-t border-[#14110F]/10">
+        <div className="mx-auto flex max-w-7xl flex-col items-center justify-between gap-4 px-6 py-6 text-xs text-[#6B6B6B] md:flex-row">
           <p>© {new Date().getFullYear()} Heavenly Panda Consulting. All rights reserved.</p>
           <div className="flex items-center gap-6">
             <Link href="/privacy" className="transition-colors duration-300 hover:text-[#D4A84B]">

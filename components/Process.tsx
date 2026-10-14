@@ -1,99 +1,228 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { useState } from "react";
+import Link from "next/link";
 import { Reveal } from "@/components/Reveal";
-import { PROCESS } from "@/components/data";
+
+const CATEGORIES = ["Photography", "Weddings", "Content creation", "Marketing & branding"];
+
+const PACKAGES = {
+  Photography: [
+    {
+      title: "Standard",
+      subtitle: "Home studio, Dubai South",
+      features: [
+        "1 hour shoot, one location",
+        "10 fully edited images plus the rest unedited",
+        "Choice of backdrops, up to 3 outfits",
+        "1 round of revisions",
+        "Delivery within 5 days",
+        "Digital mini-magazine",
+      ],
+      notIncluded: "Props, location scouting, RAW files, make-up",
+    },
+    {
+      title: "Silver",
+      subtitle: "On location",
+      features: [
+        "2 hour shoot, one location in Dubai",
+        "20 fully edited images",
+        "Behind-the-scenes snippets",
+        "Digital album (video)",
+        "2 rounds of revisions",
+        "Delivery within 3 days",
+      ],
+      notIncluded: "Make-up, props and styling, music licences",
+    },
+    {
+      title: "Party / Event",
+      subtitle: "Minimum 3 hours",
+      features: [
+        "100–300 edited images, by duration",
+        "60–90 sec highlight video for Instagram & TikTok",
+        "RAW files included",
+        "2 rounds of revisions",
+        "Delivery in 2–5 days",
+      ],
+      notIncluded: "Make-up, props, studio space",
+    },
+    {
+      title: "Event · 4 hours",
+      subtitle: "Half day",
+      features: [
+        "4 hours of coverage",
+        "100–200 fully edited images",
+        "1–3 min highlight video",
+        "2 rounds of revisions",
+        "Delivery in 3–5 days",
+      ],
+      notIncluded: "Make-up, props, studio space",
+    },
+    {
+      title: "Event · 6 hours",
+      subtitle: "Extended",
+      features: [
+        "6 hours of coverage",
+        "200–300 fully edited images",
+        "1–3 min highlight video",
+        "2 rounds of revisions",
+        "Delivery in 3–5 days",
+      ],
+      notIncluded: "Make-up, props, studio space",
+    },
+    {
+      title: "Event · 8 hours",
+      subtitle: "Full day",
+      features: [
+        "Full-day coverage",
+        "300–400 fully edited images",
+        "1–3 min highlight video",
+        "Same-day social teaser",
+        "Delivery in 3–5 days",
+      ],
+      notIncluded: "Make-up, props, studio space",
+    },
+  ],
+  Weddings: [],
+  "Content creation": [],
+  "Marketing & branding": [],
+};
+
+const FOOTER_NOTES = [
+  {
+    title: "50% deposit",
+    body: "Confirms your booking. Balance due on or before the shoot day.",
+  },
+  {
+    title: "Ways to pay",
+    body: "Bank transfer, Alipay, Ecocash, Remitly, or cash with a written receipt.",
+  },
+  {
+    title: "Rescheduling",
+    body: "Move once for free with 30+ days notice. Deposits are non-refundable.",
+  },
+  {
+    title: "Not included",
+    body: "Make-up, props, venue hire, music licences, permits and ad spend, unless listed.",
+  },
+];
 
 export function Process() {
+  const [activeCategory, setActiveCategory] = useState("Photography");
+
+  const packages = PACKAGES[activeCategory as keyof typeof PACKAGES] || [];
+
   return (
-    <section id="process" className="relative overflow-hidden bg-[#FCFBF8] py-28 sm:py-36">
-      {/* Background */}
-      <div className="pointer-events-none absolute inset-0">
-        <div className="absolute left-1/2 top-0 h-[420px] w-[600px] -translate-x-1/2 rounded-full bg-[#D4A84B]/[0.07] blur-[150px]" />
-        <div
-          className="absolute inset-0 opacity-[0.035]"
-          style={{
-            backgroundImage:
-              "linear-gradient(#D4A84B 1px, transparent 1px), linear-gradient(90deg, #D4A84B 1px, transparent 1px)",
-            backgroundSize: "56px 56px",
-          }}
-        />
-      </div>
-
-      <div className="relative mx-auto max-w-4xl px-6">
+    <section
+      id="process"
+      className="relative overflow-hidden bg-[#FCFBF8] py-20 text-[#14110F] md:py-28"
+    >
+      <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+        {/* Header */}
         <Reveal>
-          <div className="flex flex-wrap items-end justify-between gap-6">
-            <div>
-              <span className="inline-flex items-center gap-3 text-[11px] uppercase tracking-[0.35em] text-[#D4A84B]/80">
-                <span className="h-px w-8 bg-[#D4A84B]/50" />
-                Process
-              </span>
+          <h2 className="font-sans text-5xl font-bold tracking-tight text-[#14110F] sm:text-6xl md:text-7xl">
+            Packages
+          </h2>
+        </Reveal>
 
-              <h2 className="mt-6 font-clash text-4xl font-bold leading-[1.1] text-[#14110F] sm:text-5xl">
-                A process built
-                <br />
-                <span className="font-serif italic font-normal text-[#D4A84B]">
-                  for results.
-                </span>
-              </h2>
-            </div>
-
-            <span className="font-serif text-sm italic text-[#5E5A54]/50">
-              {PROCESS[0]?.n}–{PROCESS[PROCESS.length - 1]?.n}
-            </span>
-          </div>
-
-          <p className="mt-6 max-w-xl text-lg leading-8 text-[#5E5A54]">
-            Every project follows a refined framework designed to keep strategy,
-            creativity and execution perfectly aligned from day one.
+        <Reveal delay={100}>
+          <p className="mt-5 max-w-2xl text-base leading-relaxed text-[#4A4A4A] sm:text-lg">
+            Choose a package, then message us on WhatsApp for a quote and
+            availability. A 50% deposit secures your date.
           </p>
         </Reveal>
 
-        {/* Route */}
-        <div className="mt-20 sm:mt-24">
-          {PROCESS.map((step, index) => (
-            <Reveal key={step.n} delay={index * 120}>
-              <div className="group relative flex gap-6 pb-14 last:pb-0 sm:gap-10">
-                {/* Marker + connecting line */}
-                <div className="relative flex w-4 flex-none flex-col items-center">
-                  <motion.span
-                    initial={{ scale: 0.5, opacity: 0 }}
-                    whileInView={{ scale: 1, opacity: 1 }}
-                    viewport={{ once: true, margin: "-40px" }}
-                    transition={{ duration: 0.4, delay: index * 0.08 }}
-                    className="relative z-10 flex h-4 w-4 flex-none items-center justify-center rounded-full border-[1.5px] border-[#D4A84B] bg-[#FCFBF8] transition-colors duration-300 group-hover:bg-[#D4A84B]"
-                  >
-                    <span className="h-1.5 w-1.5 rounded-full bg-[#D4A84B] transition-colors duration-300 group-hover:bg-[#FCFBF8]" />
-                  </motion.span>
+        {/* Category tabs */}
+        <Reveal delay={200}>
+          <div className="mt-10 flex flex-wrap gap-3">
+            {CATEGORIES.map((cat) => {
+              const isActive = activeCategory === cat;
+              return (
+                <button
+                  key={cat}
+                  type="button"
+                  onClick={() => setActiveCategory(cat)}
+                  className={`rounded-full px-6 py-3 text-sm font-medium transition-all duration-300 ${
+                    isActive
+                      ? "bg-[#14110F] text-[#FCFBF8]"
+                      : "border border-[#14110F]/15 bg-transparent text-[#14110F] hover:border-[#14110F]/40"
+                  }`}
+                >
+                  {cat}
+                </button>
+              );
+            })}
+          </div>
+        </Reveal>
 
-                  {index !== PROCESS.length - 1 && (
-                    <motion.span
-                      initial={{ scaleY: 0 }}
-                      whileInView={{ scaleY: 1 }}
-                      viewport={{ once: true, margin: "-40px" }}
-                      transition={{ duration: 0.7, delay: index * 0.08 + 0.1 }}
-                      style={{ transformOrigin: "top" }}
-                      className="mt-1 w-px flex-1 bg-[#D4A84B]/25"
-                    />
-                  )}
-                </div>
+        {/* Package grid */}
+        <div className="mt-14 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
+          {packages.map((pkg, i) => (
+            <Reveal key={pkg.title} delay={i * 80}>
+              <div className="flex h-full flex-col rounded-3xl border border-[#14110F]/10 bg-white p-8 shadow-[0_2px_20px_rgba(0,0,0,0.03)] transition-shadow duration-300 hover:shadow-[0_10px_40px_rgba(0,0,0,0.07)]">
+                {/* Title + subtitle */}
+                <h3 className="font-sans text-2xl font-bold text-[#14110F]">
+                  {pkg.title}
+                </h3>
+                <p className="mt-1 text-sm text-[#6B6B6B]">{pkg.subtitle}</p>
 
-                {/* Content */}
-                <div className="flex-1 pb-1">
-                  <span className="font-serif text-sm italic text-[#D4A84B]">
-                    {step.n}
-                  </span>
-                  <h3 className="mt-2 font-clash text-xl font-semibold text-[#14110F] transition-transform duration-300 group-hover:translate-x-1 sm:text-2xl">
-                    {step.title}
-                  </h3>
-                  <p className="mt-3 max-w-xl leading-7 text-[#5E5A54] transition-transform duration-300 group-hover:translate-x-1">
-                    {step.body}
+                {/* Features */}
+                <ul className="mt-6 flex-1 space-y-3">
+                  {pkg.features.map((feat) => (
+                    <li
+                      key={feat}
+                      className="flex items-start gap-3 text-sm leading-relaxed text-[#14110F]"
+                    >
+                      <span className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-[#D4A84B]" />
+                      <span>{feat}</span>
+                    </li>
+                  ))}
+                </ul>
+
+                {/* Not included note */}
+                {pkg.notIncluded && (
+                  <p className="mt-6 text-xs leading-relaxed text-[#6B6B6B]">
+                    Not included: {pkg.notIncluded}
                   </p>
-                </div>
+                )}
+
+                {/* Inquire button */}
+                <Link
+                  href="/contact"
+                  className="mt-6 inline-flex items-center justify-center rounded-full bg-[#14110F] px-6 py-4 text-sm font-semibold text-[#FCFBF8] transition-colors duration-300 hover:bg-[#D4A84B] hover:text-[#14110F]"
+                >
+                  Inquire
+                </Link>
               </div>
             </Reveal>
           ))}
+
+          {/* Empty state for categories without packages yet */}
+          {packages.length === 0 && (
+            <div className="col-span-full rounded-3xl border border-dashed border-[#14110F]/15 bg-white/50 p-12 text-center">
+              <p className="text-base text-[#6B6B6B]">
+                Packages for <strong>{activeCategory}</strong> coming soon.
+                Message us on WhatsApp for a custom quote.
+              </p>
+            </div>
+          )}
         </div>
+
+        {/* Footer info bar */}
+        <Reveal delay={300}>
+          <div className="mt-20 grid grid-cols-1 gap-8 border-t border-[#14110F]/10 pt-12 sm:grid-cols-2 lg:grid-cols-4">
+            {FOOTER_NOTES.map((note) => (
+              <div key={note.title}>
+                <h4 className="text-base font-bold text-[#14110F]">
+                  {note.title}
+                </h4>
+                <p className="mt-2 text-sm leading-relaxed text-[#4A4A4A]">
+                  {note.body}
+                </p>
+              </div>
+            ))}
+          </div>
+        </Reveal>
       </div>
     </section>
   );

@@ -1,4 +1,3 @@
-// components/Navbar.tsx
 "use client";
 
 import { useState, useEffect } from "react";
@@ -7,9 +6,10 @@ import Image from "next/image";
 import { usePathname } from "next/navigation";
 
 const NAV_LINKS = [
-  { name: "Home", href: "/", note: "Welcome" },
   { name: "Services", href: "/#services", note: "What we offer" },
-  { name: "Portfolio", href: "/portfolio", note: "Our work" },
+  { name: "Packages", href: "/#process", note: "Our pricing" },
+  { name: "Work", href: "/portfolio", note: "Our work" },
+  { name: "How it works", href: "/#how-it-works", note: "Our process" },
   { name: "Contact", href: "/contact", note: "Get in touch" },
 ];
 
@@ -20,41 +20,62 @@ export default function Navbar() {
 
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 20);
+
     handleScroll();
-    window.addEventListener("scroll", handleScroll);
+    window.addEventListener("scroll", handleScroll, { passive: true });
+
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
   useEffect(() => {
     const handleResize = () => {
-      if (window.innerWidth > 768) setIsMobileMenuOpen(false);
+      if (window.innerWidth >= 768) {
+        setIsMobileMenuOpen(false);
+      }
     };
+
     window.addEventListener("resize", handleResize);
     return () => window.removeEventListener("resize", handleResize);
   }, []);
 
   useEffect(() => {
     document.body.style.overflow = isMobileMenuOpen ? "hidden" : "";
+
     return () => {
       document.body.style.overflow = "";
     };
   }, [isMobileMenuOpen]);
 
-  // Close mobile menu on route change
   useEffect(() => {
     setIsMobileMenuOpen(false);
   }, [pathname]);
 
+  useEffect(() => {
+    const handleEscape = (event: KeyboardEvent) => {
+      if (event.key === "Escape") setIsMobileMenuOpen(false);
+    };
+
+    window.addEventListener("keydown", handleEscape);
+    return () => window.removeEventListener("keydown", handleEscape);
+  }, []);
+
   const isActive = (href: string) => {
     if (href === "/") return pathname === "/";
-    if (href.startsWith("/#")) return false; // in-page anchor, never "active" as a route
-    return pathname === href || pathname.startsWith(href + "/");
+    if (href.startsWith("/#")) return false;
+
+    return pathname === href || pathname.startsWith(`${href}/`);
   };
+
+  const closeMenu = () => setIsMobileMenuOpen(false);
+
+  const textColor = scrolled ? "text-[#14110F]" : "text-[#F3ECDD]";
 
   return (
     <>
+      {/* Main navigation */}
       <nav
-        className={`fixed left-0 right-0 top-0 z-[100] border-b transition-all duration-500 ${
+        aria-label="Main navigation"
+        className={`fixed inset-x-0 top-0 z-[100] border-b transition-all duration-500 ${
           scrolled
             ? "border-[#D4A84B]/20 bg-[#FCFBF8]/95 shadow-[0_4px_30px_rgba(0,0,0,0.05)] backdrop-blur-xl"
             : "border-white/10 bg-[#14110F]/90 backdrop-blur-md"
@@ -62,68 +83,91 @@ export default function Navbar() {
       >
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="flex h-16 items-center justify-between md:h-20">
-            {/* Logo — allowed to overflow the bar itself */}
-            <Link href="/" className="group relative z-10 flex-shrink-0">
-              <div className="relative -my-6 h-24 w-44 sm:h-28 sm:w-52 md:-my-8 md:h-36 md:w-64 lg:h-40 lg:w-72">
+            {/* Logo + Brand Name */}
+            <Link
+              href="/"
+              onClick={closeMenu}
+              aria-label="Heavenly Panda home"
+              className="group relative z-10 flex shrink-0 items-center"
+            >
+              {/* Logo mark — smaller, more proportionate */}
+              <div className="relative h-10 w-20 sm:h-11 sm:w-24 md:h-12 md:w-28 lg:h-14 lg:w-32">
                 <Image
-                  src={scrolled ? "/heavenly-panda-logo2.png" : "/heavenly-logo2.jpeg"}
+                  src="/logo.png"
                   alt="Heavenly Panda"
                   fill
                   priority
-                  className={`object-contain object-left transition-transform duration-300 group-hover:scale-[1.03] ${
-                    scrolled 
-                      ? "drop-shadow-[0_6px_20px_rgba(20,17,15,0.12)]" 
+                  sizes="(max-width: 640px) 80px, (max-width: 768px) 96px, 128px"
+                  className={`object-contain object-left transition-all duration-300 group-hover:scale-[1.04] ${
+                    scrolled
+                      ? "drop-shadow-[0_6px_20px_rgba(20,17,15,0.12)]"
                       : "drop-shadow-[0_6px_20px_rgba(212,168,75,0.15)]"
                   }`}
                 />
               </div>
-            </Link>
 
-            {/* Desktop nav */}
-            <div className="hidden flex-1 items-center justify-center gap-10 md:flex">
-              {NAV_LINKS.map((link) => (
-                <Link
-                  key={link.name}
-                  href={link.href}
-                  className={`group/link relative text-sm font-medium transition-colors duration-300 ${
-                    scrolled
-                      ? "text-[#4A4A4A] hover:text-[#14110F]"
-                      : "text-[#F3ECDD]/70 hover:text-[#F3ECDD]"
-                  }`}
-                >
-                  <span
-                    className={`absolute -top-3 left-1/2 h-1 w-1 -translate-x-1/2 rounded-full bg-[#D4A84B] transition-opacity duration-300 ${
-                      isActive(link.href) ? "opacity-100" : "opacity-0 group-hover/link:opacity-60"
-                    }`}
-                  />
-                  <span className={isActive(link.href) ? (scrolled ? "text-[#14110F]" : "text-[#F3ECDD]") : ""}>
-                    {link.name}
-                  </span>
-                </Link>
-              ))}
-            </div>
-
-            {/* Right side */}
-            <div className="hidden items-center gap-6 md:flex">
-              <span className={`text-xs font-medium tracking-wide transition-colors duration-300 ${
-                scrolled ? "text-[#6B6B6B]" : "text-[#F3ECDD]/50"
-              }`}>
-                Beijing · UAE
-              </span>
-
-              <Link
-                href="/contact"
-                className={`group relative overflow-hidden rounded-[6px] border px-6 py-2.5 text-sm font-semibold transition-colors duration-300 ${
-                  scrolled
-                    ? "border-[#14110F] text-[#14110F] hover:text-[#F3ECDD]"
-                    : "border-[#F3ECDD] text-[#F3ECDD] hover:text-[#14110F]"
+              {/* Brand name */}
+              <span
+                className={`relative z-10 ml-1 whitespace-nowrap text-sm font-semibold tracking-tight transition-colors duration-500 sm:text-base md:text-lg ${
+                  scrolled ? "text-[#14110F]" : "text-[#F3ECDD]"
                 }`}
               >
-                <span className={`absolute inset-0 -translate-x-full transition-transform duration-300 group-hover:translate-x-0 ${
-                  scrolled ? "bg-[#14110F]" : "bg-[#F3ECDD]"
-                }`} />
+                Heavenly Panda{" "}
+                <span className="text-[#D4A84B]">Media</span>
+              </span>
+            </Link>
+
+            {/* Desktop navigation links */}
+            <div className="hidden flex-1 items-center justify-center gap-6 md:flex lg:gap-8">
+              {NAV_LINKS.map((link) => {
+                const active = isActive(link.href);
+
+                return (
+                  <Link
+                    key={link.name}
+                    href={link.href}
+                    className={`group/link relative py-3 text-sm font-medium transition-colors duration-300 ${
+                      scrolled
+                        ? "text-[#4A4A4A] hover:text-[#14110F]"
+                        : "text-[#F3ECDD]/70 hover:text-[#F3ECDD]"
+                    }`}
+                  >
+                    <span
+                      className={`absolute left-1/2 top-0 h-1 w-1 -translate-x-1/2 rounded-full bg-[#D4A84B] transition-opacity duration-300 ${
+                        active
+                          ? "opacity-100"
+                          : "opacity-0 group-hover/link:opacity-70"
+                      }`}
+                    />
+
+                    <span
+                      className={
+                        active
+                          ? scrolled
+                            ? "text-[#14110F]"
+                            : "text-[#F3ECDD]"
+                          : ""
+                      }
+                    >
+                      {link.name}
+                    </span>
+                  </Link>
+                );
+              })}
+            </div>
+
+            {/* Desktop CTA - WhatsApp pill */}
+            <div className="hidden shrink-0 items-center md:flex">
+              <Link
+                href="/contact"
+                className={`group relative inline-flex overflow-hidden rounded-full px-6 py-2.5 text-sm font-semibold transition-colors duration-300 ${
+                  scrolled
+                    ? "bg-[#14110F] text-[#F3ECDD] hover:bg-[#D4A84B] hover:text-[#14110F]"
+                    : "bg-[#F3ECDD] text-[#14110F] hover:bg-[#D4A84B]"
+                }`}
+              >
                 <span className="relative z-10 flex items-center gap-2">
-                  Let&apos;s talk
+                  WhatsApp us
                   <svg
                     width="16"
                     height="16"
@@ -133,7 +177,8 @@ export default function Navbar() {
                     strokeWidth="2"
                     strokeLinecap="round"
                     strokeLinejoin="round"
-                    className="transition-transform group-hover:translate-x-1"
+                    className="transition-transform duration-300 group-hover:translate-x-1"
+                    aria-hidden="true"
                   >
                     <path d="M5 12h14M12 5l7 7-7 7" />
                   </svg>
@@ -141,27 +186,47 @@ export default function Navbar() {
               </Link>
             </div>
 
-            {/* Mobile menu button */}
+            {/* Mobile menu toggle */}
             <button
-              onClick={() => setIsMobileMenuOpen((v) => !v)}
-              className="relative z-10 flex h-10 w-10 items-center justify-center rounded-xl transition-colors hover:bg-[#D4A84B]/10 md:hidden"
-              aria-label="Toggle menu"
+              type="button"
+              onClick={() => setIsMobileMenuOpen((open) => !open)}
+              className={`relative z-[110] flex h-11 w-11 items-center justify-center rounded-xl transition-colors md:hidden ${
+                scrolled ? "hover:bg-[#D4A84B]/10" : "hover:bg-white/10"
+              } ${isMobileMenuOpen ? "pointer-events-none" : ""}`}
+              aria-label={
+                isMobileMenuOpen ? "Close navigation menu" : "Open navigation menu"
+              }
+              aria-expanded={isMobileMenuOpen}
+              aria-controls="mobile-navigation"
             >
               <div className="relative h-5 w-6">
                 <span
                   className={`absolute left-0 h-[2px] w-full rounded-full transition-all duration-300 ${
-                    isMobileMenuOpen ? "top-2 w-full rotate-45" : "top-0"
-                  } ${scrolled ? "bg-[#14110F]" : "bg-[#F3ECDD]"}`}
+                    isMobileMenuOpen ? "top-2 rotate-45" : "top-0"
+                  } ${textColor}`}
+                  style={{ backgroundColor: "currentColor" }}
                 />
+
                 <span
-                  className={`absolute left-0 top-2 h-[2px] rounded-full transition-all duration-300 ${
-                    isMobileMenuOpen ? "w-0 opacity-0" : "w-full"
-                  } ${scrolled ? "bg-[#14110F]" : "bg-[#F3ECDD]"}`}
+                  className={`absolute left-0 top-2 h-[2px] w-full rounded-full transition-all duration-300 ${
+                    isMobileMenuOpen
+                      ? "scale-x-0 opacity-0"
+                      : "scale-x-100 opacity-100"
+                  }`}
+                  style={{
+                    backgroundColor: scrolled ? "#14110F" : "#F3ECDD",
+                  }}
                 />
+
                 <span
-                  className={`absolute left-0 h-[2px] rounded-full transition-all duration-300 ${
-                    isMobileMenuOpen ? "top-2 w-full -rotate-45" : "top-4 w-3/4"
-                  } ${scrolled ? "bg-[#14110F]" : "bg-[#F3ECDD]"}`}
+                  className={`absolute left-0 h-[2px] w-3/4 rounded-full transition-all duration-300 ${
+                    isMobileMenuOpen
+                      ? "top-2 w-full -rotate-45"
+                      : "top-4"
+                  }`}
+                  style={{
+                    backgroundColor: scrolled ? "#14110F" : "#F3ECDD",
+                  }}
                 />
               </div>
             </button>
@@ -169,90 +234,129 @@ export default function Navbar() {
         </div>
       </nav>
 
-      {/* Mobile menu overlay */}
+      {/* Mobile navigation overlay */}
       <div
-        className={`fixed inset-0 z-[99] backdrop-blur-xl transition-all duration-500 ${
-          isMobileMenuOpen ? "pointer-events-auto opacity-100" : "pointer-events-none opacity-0"
-        } ${scrolled ? "bg-[#FCFBF8]/97" : "bg-[#14110F]/97"}`}
-        style={{ top: 64 }}
+        id="mobile-navigation"
+        aria-hidden={!isMobileMenuOpen}
+        className={`fixed inset-x-0 bottom-0 top-16 z-[105] overflow-y-auto backdrop-blur-xl transition-all duration-500 md:hidden ${
+          isMobileMenuOpen
+            ? "pointer-events-auto visible opacity-100"
+            : "pointer-events-none invisible opacity-0"
+        } ${
+          scrolled
+            ? "bg-[#FCFBF8]/[0.98]"
+            : "bg-[#14110F]/[0.98]"
+        }`}
       >
-        <div className="relative flex h-full flex-col justify-center px-6 py-12">
-          <div className="pointer-events-none absolute right-0 top-0 h-64 w-64 rounded-full bg-[#D4A84B]/5 blur-3xl" />
-          <div className="pointer-events-none absolute bottom-0 left-0 h-64 w-64 rounded-full bg-[#D4A84B]/5 blur-3xl" />
+        <div className="relative flex min-h-full flex-col justify-center px-6 py-12 sm:px-10">
+          {/* Subtle gold atmosphere */}
+          <div
+            className="pointer-events-none absolute right-0 top-0 h-64 w-64 rounded-full bg-[#D4A84B]/[0.06] blur-3xl"
+            aria-hidden="true"
+          />
 
+          <div
+            className="pointer-events-none absolute bottom-0 left-0 h-64 w-64 rounded-full bg-[#D4A84B]/[0.06] blur-3xl"
+            aria-hidden="true"
+          />
+
+          {/* Animated links */}
           <div className="relative z-10 space-y-7">
             {NAV_LINKS.map((link, index) => (
               <Link
                 key={link.name}
                 href={link.href}
-                onClick={() => setIsMobileMenuOpen(false)}
-                className={`block font-clash text-4xl font-medium transition-colors duration-300 hover:text-[#D4A84B] ${
+                tabIndex={isMobileMenuOpen ? 0 : -1}
+                onClick={closeMenu}
+                className={`mobile-nav-link block text-4xl font-medium tracking-tight transition-colors duration-300 hover:text-[#D4A84B] sm:text-5xl ${
                   scrolled ? "text-[#14110F]" : "text-[#F3ECDD]"
                 }`}
-                style={{
-                  animation: isMobileMenuOpen
-                    ? `fadeSlideIn 0.5s ease forwards ${index * 0.1 + 0.2}s`
-                    : "none",
-                  opacity: isMobileMenuOpen ? 1 : 0,
-                  transform: isMobileMenuOpen ? "translateX(0)" : "translateX(20px)",
-                }}
+                style={
+                  {
+                    "--link-index": index,
+                    animationPlayState: isMobileMenuOpen
+                      ? "running"
+                      : "paused",
+                  } as React.CSSProperties
+                }
               >
                 {link.name}
-                <span className={`mt-1 block text-sm font-light ${
-                  scrolled ? "text-[#6B6B6B]" : "text-[#F3ECDD]/50"
-                }`}>
+
+                <span
+                  className={`mt-1 block text-sm font-light tracking-normal ${
+                    scrolled
+                      ? "text-[#6B6B6B]"
+                      : "text-[#F3ECDD]/50"
+                  }`}
+                >
                   {link.note}
                 </span>
               </Link>
             ))}
 
+            {/* Mobile CTA */}
             <Link
               href="/contact"
-              onClick={() => setIsMobileMenuOpen(false)}
-              className={`inline-flex items-center gap-3 rounded-[6px] px-8 py-4 font-semibold transition-colors ${
+              tabIndex={isMobileMenuOpen ? 0 : -1}
+              onClick={closeMenu}
+              className={`mobile-nav-link inline-flex items-center gap-3 rounded-full px-8 py-4 font-semibold transition-colors duration-300 ${
                 scrolled
                   ? "bg-[#14110F] text-[#F3ECDD] hover:bg-[#D4A84B] hover:text-[#14110F]"
                   : "bg-[#D4A84B] text-[#14110F] hover:bg-[#F3ECDD]"
               }`}
-              style={{
-                animation: isMobileMenuOpen ? "fadeSlideIn 0.5s ease forwards 0.6s" : "none",
-                opacity: isMobileMenuOpen ? 1 : 0,
-                transform: isMobileMenuOpen ? "translateX(0)" : "translateX(20px)",
-              }}
+              style={
+                {
+                  "--link-index": NAV_LINKS.length,
+                  animationPlayState: isMobileMenuOpen
+                    ? "running"
+                    : "paused",
+                } as React.CSSProperties
+              }
             >
-              Start a project
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+              WhatsApp us
+
+              <svg
+                width="20"
+                height="20"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                aria-hidden="true"
+              >
                 <path d="M5 12h14M12 5l7 7-7 7" />
               </svg>
             </Link>
           </div>
 
-          <div className={`relative z-10 mt-12 border-t pt-8 ${
-            scrolled ? "border-[#D4A84B]/20" : "border-[#D4A84B]/20"
-          }`}>
-            <div className={`flex items-center gap-6 text-sm ${
-              scrolled ? "text-[#6B6B6B]" : "text-[#F3ECDD]/50"
-            }`}>
+          {/* Mobile contact details */}
+          <div className="relative z-10 mt-12 border-t border-[#D4A84B]/20 pt-8">
+            <div
+              className={`flex flex-wrap items-center gap-4 text-sm ${
+                scrolled
+                  ? "text-[#6B6B6B]"
+                  : "text-[#F3ECDD]/50"
+              }`}
+            >
               <span>Beijing · UAE</span>
-              <span className={`h-4 w-px ${
-                scrolled ? "bg-[#D4A84B]/30" : "bg-[#D4A84B]/30"
-              }`} />
-              <a href="mailto:contact@heavenlypanda.com" className="transition-colors hover:text-[#D4A84B]">
+
+              <span
+                className="h-4 w-px bg-[#D4A84B]/30"
+                aria-hidden="true"
+              />
+
+              <a
+                href="mailto:contact@heavenlypanda.com"
+                tabIndex={isMobileMenuOpen ? 0 : -1}
+                className="transition-colors hover:text-[#D4A84B]"
+              >
                 contact@heavenlypanda.com
               </a>
             </div>
           </div>
         </div>
-
-        <button
-          onClick={() => setIsMobileMenuOpen(false)}
-          className="absolute right-6 top-6 flex h-12 w-12 items-center justify-center rounded-full bg-[#D4A84B]/10 transition-colors hover:bg-[#D4A84B]/20"
-          aria-label="Close menu"
-        >
-          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke={scrolled ? "#14110F" : "#F3ECDD"} strokeWidth="2" strokeLinecap="round">
-            <path d="M18 6L6 18M6 6l12 12" />
-          </svg>
-        </button>
       </div>
 
       <style jsx>{`
@@ -261,9 +365,28 @@ export default function Navbar() {
             opacity: 0;
             transform: translateX(20px);
           }
+
           to {
             opacity: 1;
             transform: translateX(0);
+          }
+        }
+
+        .mobile-nav-link {
+          opacity: 0;
+          transform: translateX(20px);
+        }
+
+        #mobile-navigation[aria-hidden="false"] .mobile-nav-link {
+          animation: fadeSlideIn 0.5s ease forwards;
+          animation-delay: calc(var(--link-index) * 100ms + 100ms);
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+          .mobile-nav-link {
+            animation: none !important;
+            opacity: 1;
+            transform: none;
           }
         }
       `}</style>

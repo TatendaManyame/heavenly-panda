@@ -34,6 +34,19 @@ const EVENT_IMAGES = [
 // Fallback image if none of the event images load
 const FALLBACK_IMAGE = "/heavenly-logo2.jpeg";
 
+const MISSION_VISION = [
+  {
+    n: "01",
+    title: "Our Mission",
+    text: "To capture moments that can't be re-lived — through photography, film and content that help brands, events and people tell their story with clarity and craft.",
+  },
+  {
+    n: "02",
+    title: "Our Vision",
+    text: "To become the go-to media studio for growing brands and milestone moments across the Middle East and Asia — known for work clients are proud to share.",
+  },
+];
+
 export function WhoWeAre() {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [imageErrors, setImageErrors] = useState<Record<number, boolean>>({});
@@ -44,10 +57,10 @@ export function WhoWeAre() {
   useEffect(() => {
     const checkImages = async () => {
       const valid: string[] = [];
-      
+
       for (const img of EVENT_IMAGES) {
         try {
-          const response = await fetch(img, { method: 'HEAD' });
+          const response = await fetch(img, { method: "HEAD" });
           if (response.ok) {
             valid.push(img);
           } else {
@@ -57,12 +70,12 @@ export function WhoWeAre() {
           console.warn(`Error checking image: ${img}`, error);
         }
       }
-      
+
       // If no valid images found, use fallback
       if (valid.length === 0) {
         valid.push(FALLBACK_IMAGE);
       }
-      
+
       setValidImages(valid);
       setIsLoading(false);
     };
@@ -75,7 +88,7 @@ export function WhoWeAre() {
     if (validImages.length === 0) return;
 
     const interval = setInterval(() => {
-      setCurrentIndex((prevIndex) => 
+      setCurrentIndex((prevIndex) =>
         prevIndex === validImages.length - 1 ? 0 : prevIndex + 1
       );
     }, 4000);
@@ -85,84 +98,102 @@ export function WhoWeAre() {
 
   const nextImage = () => {
     if (validImages.length === 0) return;
-    setCurrentIndex((prevIndex) => 
+    setCurrentIndex((prevIndex) =>
       prevIndex === validImages.length - 1 ? 0 : prevIndex + 1
     );
   };
 
   const prevImage = () => {
     if (validImages.length === 0) return;
-    setCurrentIndex((prevIndex) => 
+    setCurrentIndex((prevIndex) =>
       prevIndex === 0 ? validImages.length - 1 : prevIndex - 1
     );
   };
 
   const handleImageError = (index: number) => {
-    setImageErrors(prev => ({ ...prev, [index]: true }));
+    setImageErrors((prev) => ({ ...prev, [index]: true }));
   };
 
-  // If still loading or no images, show placeholder
+  /* ---------------- Left column: shared across all states ---------------- */
+  const LeftContent = () => (
+    <div>
+      <Reveal>
+        <span className="inline-flex items-center gap-3 text-[11px] uppercase tracking-[0.35em] text-[#D4A84B]/80">
+          <span className="h-px w-8 bg-[#D4A84B]/60" />
+          Who We Are
+        </span>
+      </Reveal>
+
+      <Reveal delay={100}>
+        <h2 className="mt-6 font-sans text-4xl font-bold leading-[1.05] tracking-tight text-[#14110F] sm:text-5xl">
+          Heavenly Panda{" "}
+          <span className="text-[#D4A84B]">Media</span>
+        </h2>
+      </Reveal>
+
+      <Reveal delay={200}>
+        <p className="mt-6 text-base leading-relaxed text-[#4A4A4A] sm:text-lg">
+          A Beijing &amp; UAE-based media studio capturing business, events and
+          travel through photography, film and content. One team that plans it,
+          shoots it and makes it work for you.
+        </p>
+      </Reveal>
+
+      <Reveal delay={300}>
+        <div className="mt-5 space-y-4">
+          <p className="text-base leading-relaxed text-[#4A4A4A] sm:text-lg">
+            We work with brands at every stage — from founders building their
+            visual identity, to established businesses refreshing their media
+            presence and scaling their footprint. Events, campaigns and
+            milestones, captured with intention.
+          </p>
+          <p className="text-base leading-relaxed text-[#4A4A4A] sm:text-lg">
+            What sets us apart is our integrated approach: photography,
+            videography, graphic design and social content handled in-house by a
+            single team. No fragmented briefings. No creative-strategy
+            disconnect. Just focused, cohesive media that performs.
+          </p>
+        </div>
+      </Reveal>
+
+      {/* Mission & Vision — matched to the new WhoWeAre style */}
+      <div className="mt-10 grid gap-5 sm:grid-cols-2">
+        {MISSION_VISION.map((item, i) => (
+          <Reveal key={item.title} delay={400 + i * 100} direction="up">
+            <div className="group relative flex h-full flex-col rounded-2xl border border-[#14110F]/10 bg-white p-6 transition-all duration-300 hover:border-[#D4A84B]/40 hover:shadow-[0_8px_30px_rgba(0,0,0,0.05)]">
+              <span className="font-serif text-sm italic text-[#D4A84B]">
+                {item.n}
+              </span>
+              <p className="mt-2 text-xs font-semibold uppercase tracking-[0.2em] text-[#D4A84B]">
+                {item.title}
+              </p>
+              <p className="mt-3 text-sm leading-relaxed text-[#4A4A4A]">
+                {item.text}
+              </p>
+            </div>
+          </Reveal>
+        ))}
+      </div>
+    </div>
+  );
+
+  /* ---------------- Right column: loading placeholder ---------------- */
   if (isLoading) {
     return (
-      <section id="about" className="py-28 px-6 bg-gradient-to-b from-white via-[#F8F5F0]/30 to-white">
-        <div className="container mx-auto max-w-7xl">
-          <div className="grid lg:grid-cols-2 gap-16 items-start">
-            {/* Left Content - same as below */}
-            <div>
-              <Reveal>
-                <span className="text-xs font-semibold tracking-[0.25em] uppercase text-[#D4A84B]">
-                  Who We Are
-                </span>
-                <h2 className="font-clash font-bold text-3xl sm:text-4xl mt-4">
-                  Heavenly Panda Consulting
-                </h2>
-                <p className="text-[#4A4A4A] text-lg leading-relaxed mt-6">
-                  A Beijing &amp; UAE-based business consultancy and creative agency
-                  that bridges strategic thinking with creative execution. We work
-                  with brands at every stage — from startups mapping their market
-                  entry to established businesses refreshing their digital presence
-                  and scaling their footprint.
-                </p>
-                <p className="text-[#4A4A4A] text-lg leading-relaxed mt-4">
-                  What sets us apart is our integrated model: strategy, content
-                  creation, and social media management handled in-house by a
-                  single team, aligned on your goals. No fragmented briefings. No
-                  creative-strategy disconnect. Just focused, cohesive work that
-                  performs.
-                </p>
-              </Reveal>
+      <section
+        id="about"
+        className="relative overflow-hidden bg-[#FCFBF8] px-6 py-20 sm:py-28"
+      >
+        <div className="relative mx-auto max-w-7xl">
+          <div className="grid items-start gap-16 lg:grid-cols-2 lg:gap-20">
+            <LeftContent />
 
-              <div className="grid sm:grid-cols-2 gap-6 mt-10">
-                <Reveal delay={100} className="border border-[#D4A84B]/25 rounded-[10px] p-6 bg-white/60 backdrop-blur-sm">
-                  <p className="text-xs font-semibold tracking-[0.25em] uppercase text-[#D4A84B] mb-2">
-                    Our Mission
-                  </p>
-                  <p className="text-[#1A1A1A] text-sm leading-relaxed">
-                    To create impactful business and creative solutions that
-                    resonate with target audiences, elevating brands through
-                    strategic thinking and creative excellence.
-                  </p>
-                </Reveal>
-                <Reveal delay={200} className="border border-[#D4A84B]/25 rounded-[10px] p-6 bg-white/60 backdrop-blur-sm">
-                  <p className="text-xs font-semibold tracking-[0.25em] uppercase text-[#D4A84B] mb-2">
-                    Our Vision
-                  </p>
-                  <p className="text-[#1A1A1A] text-sm leading-relaxed">
-                    To become the leading integrated consultancy for growing brands
-                    across the Middle East and Asia — known for delivering
-                    measurable results through strategy and creativity.
-                  </p>
-                </Reveal>
-              </div>
-            </div>
-
-            {/* Right - Loading Placeholder */}
             <div className="relative lg:sticky lg:top-28">
-              <div className="relative rounded-2xl overflow-hidden shadow-2xl border border-[#D4A84B]/10 bg-[#F8F5F0]">
-                <div className="relative w-full h-[400px] md:h-[500px] lg:h-[550px] flex items-center justify-center">
+              <div className="relative h-[380px] w-full overflow-hidden rounded-sm border border-[#D4A84B]/20 bg-[#F8F5F0] sm:h-[480px] lg:h-[560px]">
+                <div className="flex h-full items-center justify-center">
                   <div className="text-center">
-                    <div className="w-12 h-12 border-4 border-[#D4A84B]/20 border-t-[#D4A84B] rounded-full animate-spin mx-auto mb-4"></div>
-                    <p className="text-[#6B6B6B]">Loading images...</p>
+                    <div className="mx-auto mb-4 h-12 w-12 animate-spin rounded-full border-4 border-[#D4A84B]/20 border-t-[#D4A84B]" />
+                    <p className="text-sm text-[#6B6B6B]">Loading images…</p>
                   </div>
                 </div>
               </div>
@@ -173,69 +204,26 @@ export function WhoWeAre() {
     );
   }
 
-  // If no valid images at all
+  /* ---------------- Right column: no images found ---------------- */
   if (validImages.length === 0) {
     return (
-      <section id="about" className="py-28 px-6 bg-gradient-to-b from-white via-[#F8F5F0]/30 to-white">
-        <div className="container mx-auto max-w-7xl">
-          <div className="grid lg:grid-cols-2 gap-16 items-start">
-            {/* Left Content - same as above */}
-            <div>
-              <Reveal>
-                <span className="text-xs font-semibold tracking-[0.25em] uppercase text-[#D4A84B]">
-                  Who We Are
-                </span>
-                <h2 className="font-clash font-bold text-3xl sm:text-4xl mt-4">
-                  Heavenly Panda Consulting
-                </h2>
-                <p className="text-[#4A4A4A] text-lg leading-relaxed mt-6">
-                  A Beijing &amp; UAE-based business consultancy and creative agency
-                  that bridges strategic thinking with creative execution. We work
-                  with brands at every stage — from startups mapping their market
-                  entry to established businesses refreshing their digital presence
-                  and scaling their footprint.
-                </p>
-                <p className="text-[#4A4A4A] text-lg leading-relaxed mt-4">
-                  What sets us apart is our integrated model: strategy, content
-                  creation, and social media management handled in-house by a
-                  single team, aligned on your goals. No fragmented briefings. No
-                  creative-strategy disconnect. Just focused, cohesive work that
-                  performs.
-                </p>
-              </Reveal>
+      <section
+        id="about"
+        className="relative overflow-hidden bg-[#FCFBF8] px-6 py-20 sm:py-28"
+      >
+        <div className="relative mx-auto max-w-7xl">
+          <div className="grid items-start gap-16 lg:grid-cols-2 lg:gap-20">
+            <LeftContent />
 
-              <div className="grid sm:grid-cols-2 gap-6 mt-10">
-                <Reveal delay={100} className="border border-[#D4A84B]/25 rounded-[10px] p-6 bg-white/60 backdrop-blur-sm">
-                  <p className="text-xs font-semibold tracking-[0.25em] uppercase text-[#D4A84B] mb-2">
-                    Our Mission
-                  </p>
-                  <p className="text-[#1A1A1A] text-sm leading-relaxed">
-                    To create impactful business and creative solutions that
-                    resonate with target audiences, elevating brands through
-                    strategic thinking and creative excellence.
-                  </p>
-                </Reveal>
-                <Reveal delay={200} className="border border-[#D4A84B]/25 rounded-[10px] p-6 bg-white/60 backdrop-blur-sm">
-                  <p className="text-xs font-semibold tracking-[0.25em] uppercase text-[#D4A84B] mb-2">
-                    Our Vision
-                  </p>
-                  <p className="text-[#1A1A1A] text-sm leading-relaxed">
-                    To become the leading integrated consultancy for growing brands
-                    across the Middle East and Asia — known for delivering
-                    measurable results through strategy and creativity.
-                  </p>
-                </Reveal>
-              </div>
-            </div>
-
-            {/* Right - No Images Found */}
             <div className="relative lg:sticky lg:top-28">
-              <div className="relative rounded-2xl overflow-hidden shadow-2xl border border-[#D4A84B]/10 bg-[#F8F5F0]">
-                <div className="relative w-full h-[400px] md:h-[500px] lg:h-[550px] flex items-center justify-center p-8">
+              <div className="relative h-[380px] w-full overflow-hidden rounded-sm border border-[#D4A84B]/20 bg-[#F8F5F0] sm:h-[480px] lg:h-[560px]">
+                <div className="flex h-full items-center justify-center p-8">
                   <div className="text-center">
-                    <p className="text-[#D4A84B] text-6xl mb-4">📸</p>
-                    <p className="text-[#6B6B6B]">No images found</p>
-                    <p className="text-[#6B6B6B] text-sm mt-2">Please add images to /public/events/</p>
+                    <p className="mb-4 text-6xl text-[#D4A84B]">📸</p>
+                    <p className="text-sm text-[#6B6B6B]">No images found</p>
+                    <p className="mt-2 text-xs text-[#6B6B6B]">
+                      Please add images to /public/events/
+                    </p>
                   </div>
                 </div>
               </div>
@@ -246,148 +234,149 @@ export function WhoWeAre() {
     );
   }
 
+  /* ---------------- Full view with carousel ---------------- */
   return (
-    <section id="about" className="py-28 px-6 bg-gradient-to-b from-white via-[#F8F5F0]/30 to-white">
-      <div className="container mx-auto max-w-7xl">
-        <div className="grid lg:grid-cols-2 gap-16 items-start">
-          {/* Left Content */}
-          <div>
-            <Reveal>
-              <span className="text-xs font-semibold tracking-[0.25em] uppercase text-[#D4A84B]">
-                Who We Are
-              </span>
-              <h2 className="font-clash font-bold text-3xl sm:text-4xl mt-4">
-                Heavenly Panda Consulting
-              </h2>
-              <p className="text-[#4A4A4A] text-lg leading-relaxed mt-6">
-                A Beijing &amp; UAE-based business consultancy and creative agency
-                that bridges strategic thinking with creative execution. We work
-                with brands at every stage — from startups mapping their market
-                entry to established businesses refreshing their digital presence
-                and scaling their footprint.
-              </p>
-              <p className="text-[#4A4A4A] text-lg leading-relaxed mt-4">
-                What sets us apart is our integrated model: strategy, content
-                creation, and social media management handled in-house by a
-                single team, aligned on your goals. No fragmented briefings. No
-                creative-strategy disconnect. Just focused, cohesive work that
-                performs.
-              </p>
-            </Reveal>
+    <section
+      id="about"
+      className="relative overflow-hidden bg-[#FCFBF8] px-6 py-20 sm:py-28"
+    >
+      {/* Restrained background — matches sibling sections */}
+      <div className="pointer-events-none absolute inset-0">
+        <div className="absolute -right-32 top-0 h-[480px] w-[480px] rounded-full bg-[#D4A84B]/[0.06] blur-[160px]" />
+        <div
+          className="absolute inset-0 opacity-[0.035]"
+          style={{
+            backgroundImage:
+              "linear-gradient(#D4A84B 1px, transparent 1px), linear-gradient(90deg, #D4A84B 1px, transparent 1px)",
+            backgroundSize: "56px 56px",
+          }}
+        />
+      </div>
 
-            <div className="grid sm:grid-cols-2 gap-6 mt-10">
-              <Reveal delay={100} className="border border-[#D4A84B]/25 rounded-[10px] p-6 bg-white/60 backdrop-blur-sm">
-                <p className="text-xs font-semibold tracking-[0.25em] uppercase text-[#D4A84B] mb-2">
-                  Our Mission
-                </p>
-                <p className="text-[#1A1A1A] text-sm leading-relaxed">
-                  To create impactful business and creative solutions that
-                  resonate with target audiences, elevating brands through
-                  strategic thinking and creative excellence.
-                </p>
-              </Reveal>
-              <Reveal delay={200} className="border border-[#D4A84B]/25 rounded-[10px] p-6 bg-white/60 backdrop-blur-sm">
-                <p className="text-xs font-semibold tracking-[0.25em] uppercase text-[#D4A84B] mb-2">
-                  Our Vision
-                </p>
-                <p className="text-[#1A1A1A] text-sm leading-relaxed">
-                  To become the leading integrated consultancy for growing brands
-                  across the Middle East and Asia — known for delivering
-                  measurable results through strategy and creativity.
-                </p>
-              </Reveal>
-            </div>
-          </div>
+      <div className="relative mx-auto max-w-7xl">
+        <div className="grid items-start gap-16 lg:grid-cols-2 lg:gap-20">
+          <LeftContent />
 
-          {/* Right - Image Carousel */}
+          {/* Right — image carousel */}
           <div className="relative lg:sticky lg:top-28">
-            <div className="relative rounded-2xl overflow-hidden shadow-2xl border border-[#D4A84B]/10 bg-[#F8F5F0]">
-              {/* Main Image */}
-              <div className="relative w-full h-[400px] md:h-[500px] lg:h-[550px]">
-                <AnimatePresence mode="wait">
-                  <motion.div
-                    key={currentIndex}
-                    initial={{ opacity: 0, scale: 1.05 }}
-                    animate={{ opacity: 1, scale: 1 }}
-                    exit={{ opacity: 0, scale: 0.95 }}
-                    transition={{ duration: 0.7, ease: "easeInOut" }}
-                    className="relative w-full h-full"
-                  >
-                    <Image
-                      src={imageErrors[currentIndex] ? FALLBACK_IMAGE : validImages[currentIndex]}
-                      alt={`Event ${currentIndex + 1}`}
-                      fill
-                      className="object-cover"
-                      priority
-                      onError={() => handleImageError(currentIndex)}
-                    />
-                    {/* Gradient overlay for better text readability */}
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/30 via-transparent to-transparent" />
-                  </motion.div>
-                </AnimatePresence>
-              </div>
+            <Reveal direction="right" delay={300}>
+              <div className="relative">
+                {/* Corner brackets — same framing motif as the new WhoWeAre */}
+                <span className="pointer-events-none absolute -left-3 -top-3 h-8 w-8 border-l-2 border-t-2 border-[#D4A84B]/50" />
+                <span className="pointer-events-none absolute -right-3 -top-3 h-8 w-8 border-r-2 border-t-2 border-[#D4A84B]/50" />
+                <span className="pointer-events-none absolute -bottom-3 -left-3 h-8 w-8 border-b-2 border-l-2 border-[#D4A84B]/50" />
+                <span className="pointer-events-none absolute -bottom-3 -right-3 h-8 w-8 border-b-2 border-r-2 border-[#D4A84B]/50" />
 
-              {/* Image Counter */}
-              <div className="absolute bottom-4 left-1/2 -translate-x-1/2 bg-black/60 backdrop-blur-sm text-white text-xs px-4 py-2 rounded-full font-medium">
-                {currentIndex + 1} / {validImages.length}
-              </div>
+                <div className="relative h-[380px] w-full overflow-hidden rounded-sm border border-[#D4A84B]/20 sm:h-[480px] lg:h-[560px]">
+                  <AnimatePresence mode="wait">
+                    <motion.div
+                      key={currentIndex}
+                      initial={{ opacity: 0, scale: 1.08 }}
+                      animate={{ opacity: 1, scale: 1 }}
+                      exit={{ opacity: 0, scale: 0.96 }}
+                      transition={{ duration: 1.1, ease: [0.4, 0, 0.2, 1] }}
+                      className="absolute inset-0"
+                    >
+                      <Image
+                        src={
+                          imageErrors[currentIndex]
+                            ? FALLBACK_IMAGE
+                            : validImages[currentIndex]
+                        }
+                        alt={`Heavenly Panda Media — event ${currentIndex + 1}`}
+                        fill
+                        className="object-cover"
+                        priority
+                        quality={100}
+                        sizes="(max-width: 1024px) 100vw, 50vw"
+                        onError={() => handleImageError(currentIndex)}
+                      />
+                      <div className="absolute inset-0 bg-gradient-to-t from-[#14110F]/60 via-transparent to-transparent" />
+                    </motion.div>
+                  </AnimatePresence>
 
-              {/* Navigation Buttons */}
-              <button
-                onClick={prevImage}
-                className="absolute left-4 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-black/50 hover:bg-black/70 backdrop-blur-sm text-white flex items-center justify-center transition-all duration-300 hover:scale-110"
-                aria-label="Previous image"
-              >
-                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
-                </svg>
-              </button>
-              <button
-                onClick={nextImage}
-                className="absolute right-4 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-black/50 hover:bg-black/70 backdrop-blur-sm text-white flex items-center justify-center transition-all duration-300 hover:scale-110"
-                aria-label="Next image"
-              >
-                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-                </svg>
-              </button>
+                  {/* Counter */}
+                  <div className="absolute left-5 top-5 font-serif text-xs italic text-[#F3ECDD]">
+                    {String(currentIndex + 1).padStart(2, "0")} /{" "}
+                    {String(validImages.length).padStart(2, "0")}
+                  </div>
 
-              {/* Dot Indicators */}
-              <div className="absolute bottom-16 left-1/2 -translate-x-1/2 flex gap-1.5">
-                {validImages.map((_, index) => (
+                  {/* Prev / Next */}
                   <button
-                    key={index}
-                    onClick={() => setCurrentIndex(index)}
-                    className={`transition-all duration-300 rounded-full ${
-                      index === currentIndex
-                        ? "w-8 h-1.5 bg-[#D4A84B]"
-                        : "w-1.5 h-1.5 bg-white/50 hover:bg-white/80"
-                    }`}
-                    aria-label={`Go to image ${index + 1}`}
-                  />
-                ))}
-              </div>
-            </div>
+                    onClick={prevImage}
+                    aria-label="Previous image"
+                    className="group absolute left-4 top-1/2 flex h-9 w-9 -translate-y-1/2 items-center justify-center rounded-full border border-[#F3ECDD]/30 bg-[#14110F]/30 text-[#F3ECDD] backdrop-blur-sm transition-colors hover:border-[#D4A84B] hover:bg-[#14110F]/60"
+                  >
+                    <svg
+                      width="14"
+                      height="14"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      strokeWidth={2}
+                      className="transition-transform group-hover:-translate-x-0.5"
+                    >
+                      <path strokeLinecap="round" strokeLinejoin="round" d="M15 19l-7-7 7-7" />
+                    </svg>
+                  </button>
+                  <button
+                    onClick={nextImage}
+                    aria-label="Next image"
+                    className="group absolute right-4 top-1/2 flex h-9 w-9 -translate-y-1/2 items-center justify-center rounded-full border border-[#F3ECDD]/30 bg-[#14110F]/30 text-[#F3ECDD] backdrop-blur-sm transition-colors hover:border-[#D4A84B] hover:bg-[#14110F]/60"
+                  >
+                    <svg
+                      width="14"
+                      height="14"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      strokeWidth={2}
+                      className="transition-transform group-hover:translate-x-0.5"
+                    >
+                      <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" />
+                    </svg>
+                  </button>
 
-            {/* Decorative elements */}
-            <div className="absolute -bottom-6 -right-6 w-24 h-24 border-2 border-[#D4A84B]/10 rounded-full pointer-events-none" />
-            <div className="absolute -top-6 -left-6 w-16 h-16 border-2 border-[#D4A84B]/10 rounded-full pointer-events-none" />
+                  {/* Dots */}
+                  <div className="absolute bottom-5 left-1/2 flex -translate-x-1/2 gap-2">
+                    {validImages.map((_, index) => (
+                      <button
+                        key={index}
+                        onClick={() => setCurrentIndex(index)}
+                        aria-label={`Go to image ${index + 1}`}
+                        className={`h-1.5 rounded-full transition-all duration-300 ${
+                          index === currentIndex
+                            ? "w-6 bg-[#D4A84B]"
+                            : "w-1.5 bg-[#F3ECDD]/50 hover:bg-[#F3ECDD]/80"
+                        }`}
+                      />
+                    ))}
+                  </div>
+                </div>
+              </div>
+            </Reveal>
           </div>
         </div>
 
-        {/* Values Section - Full Width Below */}
-        <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6 mt-20">
-          {VALUES.map((v, i) => (
-            <Reveal key={v.title} delay={i * 90}>
-              <div className="p-6 rounded-xl border border-[#D4A84B]/10 bg-white/50 hover:border-[#D4A84B]/30 hover:shadow-lg transition-all duration-300 group">
-                <span className="text-[#D4A84B] text-2xl group-hover:scale-110 transition-transform duration-300 inline-block">
-                  ◆
-                </span>
-                <h3 className="font-clash font-semibold text-lg mt-2 text-[#1A1A1A]">{v.title}</h3>
-                <p className="text-[#6B6B6B] text-sm leading-relaxed mt-2">{v.body}</p>
-              </div>
-            </Reveal>
-          ))}
+        {/* Values — connected strip matching the new WhoWeAre */}
+        <div className="mt-24 border-t border-[#14110F]/10 pt-10">
+          <div className="grid divide-y divide-[#14110F]/10 sm:grid-cols-2 sm:divide-y-0 sm:divide-x lg:grid-cols-4">
+            {VALUES.map((v, i) => (
+              <Reveal key={v.title} delay={500 + i * 100} direction="up">
+                <div className="group py-6 sm:px-6 sm:py-0">
+                  <span className="font-serif text-sm italic text-[#D4A84B]">
+                    {String(i + 1).padStart(2, "0")}
+                  </span>
+                  <h3 className="mt-2 font-sans text-base font-bold text-[#14110F] transition-colors group-hover:text-[#D4A84B]">
+                    {v.title}
+                  </h3>
+                  <p className="mt-2 text-sm leading-relaxed text-[#6B6B6B]">
+                    {v.body}
+                  </p>
+                </div>
+              </Reveal>
+            ))}
+          </div>
         </div>
       </div>
     </section>
